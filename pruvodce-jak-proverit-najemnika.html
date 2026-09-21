@@ -1,0 +1,67 @@
+<!doctype html><html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jak prověřit nájemníka: registry, příjmy, reference (2026) | Klidný majitel</title>
+<meta name="description" content="Prověření nájemníka krok za krokem: insolvenční rejstřík, exekuce, ověření příjmů a referencí. Co si smíte vyžádat a co už ne.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@700;900&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="klidny.css">
+<style>
+  article.post-body{max-width:720px;margin:0 auto;padding:40px 22px 60px}
+  article.post-body .crumb{font-size:13px;color:var(--muted);margin-bottom:14px}
+  article.post-body h1{font-size:clamp(26px,4vw,38px);font-weight:900;letter-spacing:-.02em;color:var(--deep)}
+  .meta{margin-top:10px;font-size:13px;color:var(--muted)}
+  .plan-badge{display:inline-block;background:var(--sand);color:#8A6A2E;font-size:12px;font-weight:700;border-radius:99px;padding:3px 12px;margin-bottom:14px}
+  .answer{margin-top:20px;background:var(--sage);border-left:4px solid var(--petrol);border-radius:0 10px 10px 0;padding:16px 20px;font-size:16.5px;font-weight:500}
+  article.post-body h2{font-size:21px;font-weight:900;color:var(--deep);margin:34px 0 10px}
+  article.post-body p{margin:12px 0;font-size:15.5px}
+  article.post-body ul.b{margin:10px 0 14px 20px;font-size:15px}
+  article.post-body ul.b li{margin-bottom:7px}
+  .kroky{counter-reset:k;list-style:none;margin-top:8px}
+  .kroky li{counter-increment:k;position:relative;padding:13px 0 13px 52px;border-bottom:1px dashed var(--line);font-size:15px}
+  .kroky li::before{content:counter(k);position:absolute;left:0;top:13px;width:32px;height:32px;border-radius:50%;background:var(--coral);color:#fff;font-family:"Schibsted Grotesk",sans-serif;font-weight:900;font-size:15px;display:flex;align-items:center;justify-content:center}
+  .kroky li b{display:block}
+  .kroky li span{color:var(--muted);font-size:13.5px}
+  .nono{background:var(--sand);border-radius:12px;padding:14px 18px;margin:16px 0;font-size:15px}
+  .nono b{color:#8A4A2E}
+  .tbl-wrap{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:12px;background:var(--white)}
+  table.t{border-collapse:collapse;width:100%;min-width:480px;font-size:14px}
+  .t th,.t td{padding:10px 13px;border-bottom:1px solid var(--line);text-align:left}
+  .t thead th{background:var(--sage);font-size:12.5px;color:var(--deep)}
+  .t tbody tr:last-child td{border-bottom:none}
+  .t td b{font-variant-numeric:tabular-nums}
+  .ctabox{margin-top:34px;background:var(--deep);color:#fff;border-radius:16px;padding:24px}
+  .ctabox h3{font-size:19px;font-weight:900}
+  .ctabox p{color:#BFD6CF;font-size:14.5px}
+</style></head><body>
+<header class="site"><div class="wrap">
+  <a href="index.html" aria-label="Klidný majitel — úvod"><svg viewBox="0 0 470 74" width="190"><path d="M8 56 H30 V38 L56 16 L82 38 V56 H112 Q122 38 132 56 H160" fill="none" stroke="#E4684A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><text x="178" y="49" font-family="Schibsted Grotesk, sans-serif" font-weight="700" font-size="34" fill="#14262A" letter-spacing="-0.5">klidný majitel</text></svg></a>
+  <nav class="nav-links"><a href="garance-a-cenik.html">Garance a ceník</a><a href="sprava-nemovitosti-plzen.html">Správa nemovitostí</a><a href="pruvodce.html"><b>Průvodce majitele</b></a></nav>
+  <a class="btn" href="index.html#kalkulacka">Chci spočítat nájem</a>
+</div></header>
+<article class="post-body">
+  <div class="crumb"><a href="index.html">Úvod</a> → <a href="pruvodce.html">Průvodce majitele</a> → Prověřování</div>
+  <div class="plan-badge">📅 Naplánováno k publikaci 4. 11. 2026 — v prototypu zveřejněno pro náhled</div>
+  <h1>Jak prověřit nájemníka, než mu dáte klíče</h1>
+  <div class="meta">Prověřování · publikace 4. 11. 2026 · Klidný majitel · cílené slovo: „prověření nájemníka“</div>
+  <div class="answer">Krátká odpověď: minimum je <b>insolvenční rejstřík (zdarma), Centrální evidence exekucí (za poplatek), doložení příjmů a reference od předchozího pronajímatele</b>. Zabere to hodinu a odfiltruje většinu budoucích problémů. Sbírejte jen údaje nezbytné k uzavření smlouvy — víc GDPR nedovoluje.</div>
+  
+ <h2>Čtyři kontroly, které zvládnete sami</h2>
+ <ol class="kroky">
+ <li><b>Insolvenční rejstřík (isir.justice.cz).</b><span>Zdarma, online, podle jména a data narození. Probíhající insolvence = stop.</span></li>
+ <li><b>Centrální evidence exekucí.</b><span>Výpis za desetikoruny přes portály Exekutorské komory. Jedna stará exekuce nemusí nic znamenat — pět aktivních ano.</span></li>
+ <li><b>Doložení příjmů.</b><span>Potvrzení od zaměstnavatele nebo výpisy. Zdravé pravidlo: nájem do třetiny čistého příjmu domácnosti.</span></li>
+ <li><b>Reference od minulého pronajímatele.</b><span>Jeden telefonát: platil včas? V jakém stavu předal byt? Proč končí?</span></li>
+ </ol>
+ <div class="nono"><b>Co si vyžádat nesmíte:</b> výpis z rejstříku trestů plošně, informace o zdraví, těhotenství, vyznání či etnicitě. Kromě zákona to nedává ani obchodní smysl — platební morálku předpovídají registry a reference, nic jiného.</div>
+ <h2>Jak to děláme my</h2>
+ <p>Každého zájemce prověřujeme v registrech, ověřujeme příjmy a voláme reference; k tomu přidáváme vlastní zkušenost z tisíců prohlídek — a u garančních variant neseme riziko my, takže prověřujeme, jako bychom byt půjčovali sobě.</p>
+ <div class="faq" style="margin-top:24px"><details><summary>Můžu chtít kauci a zároveň prověření?</summary><div class="a">Ano, obojí je legitimní. Kauce do trojnásobku nájmu + prověření je standard profesionálního pronájmu.</div></details><details><summary>Co spolubydlící a partneři?</summary><div class="a">Prověřte každého dospělého, kdo bude ve smlouvě. U párů chtějte oba jako společné nájemce — ručí společně.</div></details><details><summary>Zájemce spěchá a tlačí na rychlý podpis?</summary><div class="a">Právě spěch bývá signál. Poctivý zájemce hodinu na prověření akceptuje.</div></details></div>
+  <div class="ctabox"><h3>S garancí KLID se vás tohle netýká.</h3><p>Smlouvu s nájemníkem neseme my a nájem vám chodí každý měsíc — i za prázdný byt.</p><a class="btn" href="garance-a-cenik.html" style="margin-top:14px">Chci vidět garance a ceník</a></div>
+</article>
+<footer><div class="wrap">
+  <span>© Klidný majitel · provozuje profiservis24 · článek je obecný návod, ne právní ani daňová služba</span>
+  <span><a href="pruvodce.html">Další články</a> · <a href="index.html#poptavka">Kontakt</a></span>
+</div></footer>
+<div class="proto">Návrh · naplánovaný článek</div>
+</body></html>

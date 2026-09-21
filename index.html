@@ -1,0 +1,817 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Garantovaný nájem a správa nemovitostí v Plzni. Váš nájem chodí každý měsíc — i když je byt prázdný. Zdarma, bez smluv a bez pokut.">
+<meta name="robots" content="noindex, nofollow"><!-- náhled pro klienta — odstranit při ostrém spuštění -->
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<title>Web Klidný majitel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;900&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --petrol:#175C66;--deep:#0C3A42;--ink:#14262A;--paper:#F7F9F6;--white:#FFFFFF;
+    --sage:#E3EDE7;--sand:#EFE6D8;--coral:#E4684A;--coral-deep:#C24E33;
+    --muted:#5C6E6B;--line:#DCE4DD;--peach:#F2A48E;--good:#1D6E37;--bad:#B4462A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:"Instrument Sans",-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.6}
+  h1,h2,h3,h4{font-family:"Schibsted Grotesk",sans-serif;line-height:1.1;text-wrap:balance}
+  img{max-width:100%}
+  .wrap{max-width:1100px;margin:0 auto;padding-inline:22px}
+  a{color:var(--petrol)}
+  .btn{display:inline-block;background:var(--coral);color:#fff;font-weight:700;font-size:15px;border:none;border-radius:10px;padding:13px 22px;cursor:pointer;text-decoration:none;font-family:"Instrument Sans",sans-serif}
+  .btn:hover{background:var(--coral-deep)}
+  .btn.ghost{background:transparent;color:var(--petrol);border:2px solid var(--petrol);padding:11px 20px}
+  .btn.ghost:hover{background:var(--sage)}
+  .ukazka{display:inline-block;background:var(--sand);color:#8A6A2E;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:99px;padding:1px 8px;vertical-align:middle}
+
+  /* ===== announcement bar (blueprint: rotující, nejlevnější reklamní plocha) ===== */
+  .announce{background:var(--deep);color:#DCE9E2;font-size:13.5px;text-align:center;padding:8px 16px}
+  .announce b{color:var(--peach)}
+  .announce .msg{display:none}
+  .announce .msg.on{display:inline}
+
+  /* ===== sticky slogan ribbon ===== */
+  #ribbon{position:fixed;top:0;left:0;right:0;z-index:60;background:var(--deep);color:#fff;transform:translateY(-110%);transition:transform .25s ease;box-shadow:0 6px 18px rgba(12,58,66,.25)}
+  #ribbon.show{transform:translateY(0)}
+  #ribbon .wrap{display:flex;align-items:center;gap:14px;padding-block:9px}
+  #ribbon .rtext{font-family:"Schibsted Grotesk",sans-serif;font-weight:700;font-size:15px}
+  #ribbon .rtext em{font-style:normal;color:var(--peach)}
+  #ribbon .btn{margin-left:auto;padding:7px 14px;font-size:13px;border-radius:8px;white-space:nowrap}
+  @media(max-width:640px){#ribbon .rtext{font-size:12.5px}}
+
+  header.site{background:var(--paper);border-bottom:1px solid var(--line)}
+  header.site .wrap{display:flex;align-items:center;gap:26px;padding-block:15px;flex-wrap:wrap}
+  .nav-links{display:flex;gap:20px;font-size:14.5px;flex-wrap:wrap}
+  .nav-links a{color:var(--ink);text-decoration:none;font-weight:500}
+  .nav-links a:hover{color:var(--petrol)}
+  header.site .btn{margin-left:auto;padding:10px 18px;font-size:14px}
+  @media(max-width:860px){.nav-links{display:none}}
+
+  /* ===== hero ===== */
+  .hero{background:linear-gradient(180deg,#FBFDFA,#F0F5F0);border-bottom:1px solid var(--line)}
+  .hero .wrap{display:grid;grid-template-columns:1.12fr .88fr;gap:44px;padding-block:52px 50px}
+  @media(max-width:880px){.hero .wrap{grid-template-columns:1fr;gap:30px}}
+  .hero h1{font-size:clamp(30px,4.6vw,49px);font-weight:900;letter-spacing:-.02em;color:var(--deep)}
+  .hero h1 em{font-style:normal;color:var(--coral)}
+  .hero .answer{margin-top:18px;font-size:clamp(17px,2vw,20px);font-weight:600;color:var(--petrol)}
+  .hero .hsub{margin-top:10px;font-size:16px;color:var(--muted);max-width:48ch}
+  .hero .ctas{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}
+  .endorse{margin-top:14px;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+  .endorse .dot{width:34px;height:34px;border-radius:50%;background:var(--sage);display:flex;align-items:center;justify-content:center;flex:none}
+  .trust{margin-top:28px;display:flex;gap:26px;flex-wrap:wrap}
+  .trust div b{display:block;font-family:"Schibsted Grotesk",sans-serif;font-weight:900;font-size:22px;color:var(--petrol);font-variant-numeric:tabular-nums}
+  .trust div span{font-size:12.5px;color:var(--muted)}
+
+  .calc{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:0 16px 40px rgba(12,58,66,.12);align-self:start}
+  .calc h3{font-size:19px;margin-bottom:2px}
+  .calc .csub{font-size:13px;color:var(--muted);margin-bottom:14px}
+  .calc label{display:block;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:12px 0 5px;font-weight:600}
+  .calc select{width:100%;border:1px solid var(--line);border-radius:9px;padding:11px 12px;font-size:15px;font-family:inherit;color:var(--ink);background:#FAFBF9;appearance:auto}
+  .calc .btn{width:100%;margin-top:18px;text-align:center}
+  .calc .gnote{font-size:11.5px;color:var(--muted);margin-top:9px;text-align:center}
+  .calc-out{margin-top:16px;background:var(--sage);border-radius:12px;padding:16px;display:none}
+  .calc-out.show{display:block}
+  .calc-out .co-label{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .calc-out .co-val{font-family:"Schibsted Grotesk",sans-serif;font-weight:900;font-size:27px;color:var(--deep);font-variant-numeric:tabular-nums;margin-top:2px}
+  .calc-out .co-gar{font-size:14px;margin-top:8px}
+  .calc-out .co-gar b{color:var(--petrol)}
+  .calc-out .co-note{font-size:11.5px;color:var(--muted);margin-top:8px}
+
+  /* ===== čísla / social proof strip ===== */
+  .proofstrip{background:var(--deep);color:#fff}
+  .proofstrip .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding-block:28px}
+  @media(max-width:760px){.proofstrip .wrap{grid-template-columns:repeat(2,1fr)}}
+  .proofstrip b{display:block;font-family:"Schibsted Grotesk",sans-serif;font-weight:900;font-size:clamp(22px,3vw,30px);color:var(--peach);font-variant-numeric:tabular-nums}
+  .proofstrip span{font-size:13px;color:#BFD6CF}
+
+  section{padding-block:60px}
+  .sec-head{max-width:660px;margin-bottom:32px}
+  .sec-head .eyebrow{font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--coral);font-weight:700;margin-bottom:10px}
+  .sec-head h2{font-size:clamp(25px,3.4vw,34px);font-weight:900;letter-spacing:-.015em;color:var(--deep)}
+  .sec-head p{margin-top:10px;color:var(--muted);font-size:15.5px}
+
+  /* personas */
+  .personas{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:820px){.personas{grid-template-columns:1fr}}
+  .persona{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .persona h4{font-size:17px;color:var(--deep);margin-bottom:8px}
+  .persona p{font-size:14px;color:var(--muted)}
+  .persona .fit{margin-top:12px;font-size:13.5px;color:var(--petrol);font-weight:600}
+
+  /* tiers */
+  .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:860px){.tiers{grid-template-columns:1fr}}
+  .tier{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:26px 24px;display:flex;flex-direction:column}
+  .tier.hi{border:2px solid var(--petrol);position:relative}
+  .tier .badge{position:absolute;top:-12px;left:22px;background:var(--petrol);color:#fff;font-size:12px;font-weight:700;border-radius:99px;padding:3px 12px}
+  .tier h3{font-size:21px;font-weight:900;color:var(--deep)}
+  .tier .tsub{font-size:13.5px;color:var(--muted);margin-top:3px}
+  .tier .price{font-family:"Schibsted Grotesk",sans-serif;font-weight:900;font-size:32px;color:var(--coral);margin:14px 0 2px;font-variant-numeric:tabular-nums}
+  .tier .price small{font-size:13px;color:var(--muted);font-weight:400;font-family:"Instrument Sans",sans-serif}
+  .tier ul{list-style:none;margin-top:14px;flex:1}
+  .tier ul li{padding:7px 0 7px 26px;position:relative;font-size:14.5px;border-bottom:1px dashed var(--line)}
+  .tier ul li:last-child{border-bottom:none}
+  .tier ul li::before{content:"✓";position:absolute;left:2px;color:var(--petrol);font-weight:700}
+  .tier .btn{margin-top:18px;text-align:center}
+  .tiers-note{margin-top:18px;font-size:13.5px;color:var(--muted);max-width:76ch}
+
+  /* srovnávací tabulka (blueprint: fajfky vs. křížky) */
+  .cmp-wrap{overflow-x:auto;margin-top:34px;border:1px solid var(--line);border-radius:14px;background:var(--white)}
+  table.cmp{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
+  .cmp th,.cmp td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:center}
+  .cmp th:first-child,.cmp td:first-child{text-align:left;font-weight:500}
+  .cmp thead th{background:var(--sage);font-family:"Schibsted Grotesk",sans-serif;font-size:13.5px;color:var(--deep)}
+  .cmp thead th.me{background:var(--petrol);color:#fff}
+  .cmp td.me{background:#F2F8F4;font-weight:700}
+  .cmp tbody tr:last-child td{border-bottom:none}
+  .y{color:var(--good);font-weight:800}
+  .n{color:var(--bad);font-weight:800}
+  .m{color:var(--muted);font-size:12.5px}
+
+  /* jak to funguje */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  @media(max-width:860px){.steps{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.steps{grid-template-columns:1fr}}
+  .step{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .step .n2{font-family:"Schibsted Grotesk",sans-serif;font-weight:900;font-size:15px;color:#fff;background:var(--coral);width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+  .step h4{font-size:16px;margin-bottom:5px}
+  .step p{font-size:13.5px;color:var(--muted)}
+
+  /* recenze */
+  .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:820px){.reviews{grid-template-columns:1fr}}
+  .rev{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column}
+  .rev .stars{color:var(--coral);letter-spacing:2px;font-size:15px}
+  .rev p{font-size:14.5px;margin-top:10px;flex:1}
+  .rev .who{display:flex;align-items:center;gap:11px;margin-top:16px}
+  .rev .ava{width:42px;height:42px;border-radius:50%;background:var(--petrol);color:#fff;display:flex;align-items:center;justify-content:center;font-family:"Schibsted Grotesk",sans-serif;font-weight:700;font-size:15px;flex:none}
+  .rev .who b{display:block;font-size:13.5px}
+  .rev .who span{font-size:12px;color:var(--muted)}
+  .rev .reply{margin-top:12px;background:var(--sage);border-radius:10px;padding:10px 12px;font-size:12.5px;color:var(--ink)}
+  .rev .reply b{color:var(--petrol)}
+  .g-note{margin-top:18px;font-size:13.5px;color:var(--muted)}
+
+  /* příběh */
+  .story{background:var(--sage)}
+  .story .inner{display:grid;grid-template-columns:1.1fr .9fr;gap:38px;align-items:start}
+  @media(max-width:820px){.story .inner{grid-template-columns:1fr}}
+  .story h2{font-size:clamp(24px,3.2vw,32px);font-weight:900;color:var(--deep)}
+  .story p{margin-top:12px;font-size:15.5px;color:var(--ink);max-width:56ch}
+  .story .partners{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap}
+  .story .plogo{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:10px 18px;font-family:"Schibsted Grotesk",sans-serif;font-weight:700;font-size:14px;color:var(--deep)}
+  .story .plogo span{display:block;font-family:"Instrument Sans",sans-serif;font-weight:400;font-size:11.5px;color:var(--muted)}
+  .story-card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:24px}
+  .story-card .q{font-family:"Schibsted Grotesk",sans-serif;font-weight:700;font-size:18px;color:var(--deep);line-height:1.35}
+  .story-card .who{display:flex;align-items:center;gap:12px;margin-top:16px}
+  .story-card .ava{width:52px;height:52px;border-radius:50%;background:var(--sand);display:flex;align-items:center;justify-content:center;flex:none}
+  .story-card .who b{display:block;font-size:14px}
+  .story-card .who span{font-size:12.5px;color:var(--muted)}
+
+  .chips{display:flex;flex-wrap:wrap;gap:10px}
+  .chip{background:var(--white);border:1px solid var(--line);border-radius:99px;padding:9px 18px;font-size:14.5px;font-weight:500}
+  .chip b{color:var(--petrol)}
+
+  /* hledám nájem */
+  .seek{background:var(--sand)}
+  .seek .inner{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
+  @media(max-width:820px){.seek .inner{grid-template-columns:1fr}}
+  .seek h2{font-size:clamp(23px,3vw,30px);font-weight:900;color:var(--deep)}
+  .seek p{color:#6B5D47;margin-top:10px;font-size:15px}
+  .mini-form{background:var(--white);border:1px solid #E4D9C4;border-radius:14px;padding:22px}
+  .mini-form label{display:block;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:10px 0 4px;font-weight:600}
+  .mini-form input,.mini-form select{width:100%;border:1px solid var(--line);border-radius:9px;padding:10px 12px;font-size:14.5px;font-family:inherit;background:#FAFBF9;color:var(--ink)}
+  .mini-form .btn{width:100%;margin-top:16px;text-align:center}
+
+  /* blog + průvodce */
+  .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:820px){.blog-grid{grid-template-columns:1fr}}
+  .post{background:var(--white);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;position:relative;transition:transform .15s ease,box-shadow .15s ease;cursor:pointer}
+  .post:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(12,58,66,.14)}
+  .post a.stretch::after{content:"";position:absolute;inset:0}
+  .post .thumb{aspect-ratio:16/8;display:flex;align-items:center;justify-content:center}
+  .post .body{padding:18px 20px;flex:1;display:flex;flex-direction:column}
+  .post .cat{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--coral);font-weight:700}
+  .post h4{font-size:16.5px;margin-top:6px;line-height:1.3}
+  .post p{font-size:13.5px;color:var(--muted);margin-top:7px;flex:1}
+  .post a{font-size:13.5px;font-weight:700;margin-top:12px;text-decoration:none}
+  .magnet{margin-top:26px;background:var(--deep);color:#fff;border-radius:16px;padding:26px;display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center}
+  @media(max-width:760px){.magnet{grid-template-columns:1fr}}
+  .magnet h3{font-size:21px;font-weight:900}
+  .magnet p{font-size:14px;color:#BFD6CF;margin-top:8px}
+  .magnet form{display:flex;gap:10px}
+  .magnet input{flex:1;border:none;border-radius:9px;padding:12px;font-size:14.5px;font-family:inherit;min-width:0}
+  .form-ok{display:none;background:var(--sage);border-left:3px solid var(--petrol);border-radius:0 8px 8px 0;padding:12px 14px;font-size:14px;margin-top:12px;color:var(--ink)}
+  .form-ok.show{display:block}
+
+  /* FAQ */
+  .faq details{background:var(--white);border:1px solid var(--line);border-radius:12px;margin-bottom:10px;overflow:hidden}
+  .faq summary{cursor:pointer;padding:16px 18px;font-weight:600;font-size:15.5px;list-style:none;position:relative;padding-right:44px}
+  .faq summary::after{content:"+";position:absolute;right:18px;top:12px;font-family:"Schibsted Grotesk",sans-serif;font-weight:700;font-size:22px;color:var(--coral)}
+  .faq details[open] summary::after{content:"–"}
+  .faq .a{padding:0 18px 16px;font-size:14.5px;color:var(--muted);max-width:78ch}
+
+  /* kontakt */
+  .contact{background:var(--white);border-top:1px solid var(--line)}
+  .contact .inner{display:grid;grid-template-columns:1fr 1fr;gap:38px}
+  @media(max-width:820px){.contact .inner{grid-template-columns:1fr}}
+  .cform label{display:block;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:12px 0 4px;font-weight:600}
+  .cform input,.cform select,.cform textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:11px 12px;font-size:15px;font-family:inherit;background:#FAFBF9;color:var(--ink)}
+  .cform textarea{min-height:80px;resize:vertical}
+  .cform .btn{margin-top:18px}
+  .face{background:var(--sage);border-radius:14px;padding:20px;display:flex;gap:16px;align-items:center;margin-top:18px}
+  .face .ava{width:64px;height:64px;border-radius:50%;background:var(--white);border:2px solid var(--petrol);display:flex;align-items:center;justify-content:center;flex:none}
+  .face b{font-family:"Schibsted Grotesk",sans-serif;font-size:16px;display:block}
+  .face p{font-size:13.5px;color:var(--muted);margin-top:3px}
+  .contact .side .big{font-family:"Schibsted Grotesk",sans-serif;font-weight:900;font-size:26px;color:var(--deep)}
+
+  footer{background:var(--deep);color:#9FC2BB;padding-block:36px 46px;font-size:13.5px}
+  footer .wrap{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:26px}
+  @media(max-width:720px){footer .wrap{grid-template-columns:1fr}}
+  footer h5{color:#fff;font-family:"Schibsted Grotesk",sans-serif;font-size:14px;margin-bottom:10px}
+  footer a{color:#BFD6CF;text-decoration:none}
+  footer a:hover{text-decoration:underline}
+  footer ul{list-style:none}
+  footer ul li{margin-bottom:6px}
+  .proto{position:fixed;bottom:12px;right:12px;z-index:70;background:var(--sand);border:1px solid #E4D9C4;color:#6B5D47;font-size:11.5px;border-radius:99px;padding:4px 12px;box-shadow:0 4px 14px rgba(0,0,0,.12)}
+
+  /* ===== fotky ===== */
+  .persona{padding:0;overflow:hidden}
+  .persona .pimg{aspect-ratio:16/9;overflow:hidden;background:var(--sage)}
+  .persona .pimg img{width:100%;height:100%;object-fit:cover;display:block}
+  .persona .pbody{padding:20px 22px}
+  .story-photo{border-radius:16px;overflow:hidden;box-shadow:0 18px 44px rgba(12,58,66,.16)}
+  .story-photo img{width:100%;display:block}
+  .story .story-card{margin-top:-34px;margin-inline:18px;position:relative}
+  .post .thumb{aspect-ratio:16/8;overflow:hidden}
+  .post .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .step .ic{width:44px;height:44px;border-radius:12px;background:var(--sage);display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+  .step .ic svg{stroke:var(--petrol)}
+  .step .n2{position:absolute;top:14px;right:14px;margin:0;width:26px;height:26px;font-size:13px}
+  .step{position:relative}
+  /* CTA band s fotkou */
+  .ctaband{position:relative;overflow:hidden;background:var(--deep)}
+  .ctaband img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.34}
+  .ctaband .inner{position:relative;padding-block:74px;max-width:640px}
+  .ctaband h2{color:#fff;font-size:clamp(26px,3.8vw,38px);font-weight:900;letter-spacing:-.015em}
+  .ctaband p{color:#D8E6DD;font-size:16px;margin-top:12px}
+  .ctaband .btn{margin-top:22px}
+</style>
+</head>
+<body>
+
+
+<!-- announcement bar — rotuje 3 sdělení (blueprint kap. 02) -->
+<div class="announce" id="announce">
+  <span class="msg on">Za službou stojí tým s <b>22 lety praxe</b> na plzeňském realitním trhu</span>
+  <span class="msg">Na poptávku reagujeme <b>do 24 hodin</b> — nájem může běžet druhý den</span>
+  <span class="msg"><b>Zářijová nabídka:</b> prvních 10 nemovitostí získá první měsíc garance KLID zdarma</span>
+</div>
+
+<!-- sticky slogan (objeví se při scrollu) -->
+<div id="ribbon" aria-hidden="true">
+  <div class="wrap">
+    <svg viewBox="0 0 190 60" width="52" aria-hidden="true"><path d="M6 44 H26 V30 L48 12 L70 30 V44 H96 Q106 28 116 44 H184" fill="none" stroke="#F2A48E" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="rtext">Váš nájem chodí každý měsíc. <em>I když je byt prázdný.</em></div>
+    <a class="btn" href="#kalkulacka">Chci spočítat nájem</a>
+  </div>
+</div>
+
+<header class="site">
+  <div class="wrap">
+    <svg viewBox="0 0 470 74" width="200" role="img" aria-label="Klidný majitel">
+      <path d="M8 56 H30 V38 L56 16 L82 38 V56 H112 Q122 38 132 56 H160" fill="none" stroke="#E4684A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="178" y="49" font-family="Schibsted Grotesk, sans-serif" font-weight="700" font-size="34" fill="#14262A" letter-spacing="-0.5">klidný majitel</text>
+    </svg>
+    <nav class="nav-links">
+      <a href="garance-a-cenik.html">Garance a ceník</a>
+      <a href="sprava-nemovitosti-plzen.html">Správa nemovitostí</a>
+      <a href="#jak">Jak to funguje</a>
+      <a href="#recenze">Zkušenosti</a>
+      <a href="pruvodce.html">Průvodce majitele</a>
+    </nav>
+    <a class="btn" href="#kalkulacka">Chci spočítat nájem</a>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <h1>Chcete pronajatý byt v Plzni — <em>a žádné starosti?</em></h1>
+      <div class="answer">Váš nájem chodí každý měsíc. I když je byt prázdný.</div>
+      <p class="hsub">Byt na Slovanech, dům v Rokycanech nebo garáž na Borech — převezmeme, obsadíme prověřeným nájemníkem a garantujeme až 100 % nájmu. Zdarma, bez zprostředkovatelských smluv a bez pokut.</p>
+      <div class="ctas">
+        <a class="btn" href="#kalkulacka">Chci vědět, kolik mi garantujete</a>
+        <a class="btn ghost" href="#jak">Jak to funguje</a>
+      </div>
+      <div class="endorse">
+        <span class="dot"><svg viewBox="0 0 190 60" width="26"><path d="M6 44 H26 V30 L48 12 L70 30 V44 H96 Q106 28 116 44 H184" fill="none" stroke="#175C66" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        Službu vede tým, který v Plzni pronajímá a spravuje nemovitosti od roku 2004 — ve spolupráci s Mix Reality a profiservis24.
+      </div>
+      <div class="trust">
+        <div><b>0 Kč</b><span>platíte předem i potom</span></div>
+        <div><b>12×</b><span>nájem ročně, vždy</span></div>
+        <div><b>22 let</b><span>na plzeňském trhu</span></div>
+        <div><b>24 h</b><span>reakce na poptávku</span></div>
+      </div>
+    </div>
+
+    <div class="calc" id="kalkulacka">
+      <h3>Kolik vám garantujeme?</h3>
+      <div class="csub">Orientační výpočet zdarma · do minuty · nezávazně</div>
+      <label for="c-typ">Co pronajímáte</label>
+      <select id="c-typ">
+        <option value="1kk">Byt 1+kk / 1+1</option>
+        <option value="2kk" selected>Byt 2+kk / 2+1</option>
+        <option value="3kk">Byt 3+kk / 3+1</option>
+        <option value="4kk">Byt 4+kk a větší</option>
+        <option value="dum">Rodinný dům</option>
+        <option value="jine">Garáž · pozemek · hala · jiné</option>
+      </select>
+      <label for="c-kde">Kde</label>
+      <select id="c-kde">
+        <option value="plzen" selected>Plzeň — město</option>
+        <option value="okoli">Okolí Plzně (do 20 km)</option>
+        <option value="kraj">Zbytek Plzeňského kraje</option>
+      </select>
+      <label for="c-stav">Stav</label>
+      <select id="c-stav">
+        <option value="novy">Novostavba / po rekonstrukci</option>
+        <option value="dobry" selected>Udržovaný standard</option>
+        <option value="starsi">Starší stav</option>
+      </select>
+      <button class="btn" id="c-btn" type="button">Chci spočítat garantovaný nájem</button>
+      <div class="calc-out" id="c-out" aria-live="polite">
+        <div class="co-label">Orientační tržní nájem</div>
+        <div class="co-val" id="c-range">—</div>
+        <div class="co-gar" id="c-gar"></div>
+        <div class="co-note">Přesnou částku potvrdíme po prohlídce zdarma — obvykle do 24 hodin.</div>
+        <a class="btn" href="#poptavka" style="width:100%;text-align:center;margin-top:12px">Chci přesný návrh zdarma</a>
+      </div>
+      <div class="gnote">Nezávazné · žádné smlouvy předem · žádné pokuty</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SOCIAL PROOF STRIP — nezačali jsme včera ===== -->
+<div class="proofstrip">
+  <div class="wrap">
+    <div><b>od 2004</b><span>tým pronajímá a spravuje nemovitosti v Plzni</span></div>
+    <div><b>110+</b><span>nemovitostí aktuálně v nabídce naší skupiny</span></div>
+    <div><b>2.–3.</b><span>největší nabídka nemovitostí v Plzeňském kraji</span></div>
+    <div><b>0</b><span>zprostředkovatelských smluv a pokut pro majitele</span></div>
+  </div>
+</div>
+
+<!-- ===== PRO KOHO ===== -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Pro koho tu jsme</div>
+      <h2>Poznáváte se?</h2>
+    </div>
+    <div class="personas">
+      <div class="persona">
+        <div class="pimg"><img src="assets/majitel-investor.webp" alt="Majitel investičního bytu v klidu kontroluje platby" loading="lazy"></div>
+        <div class="pbody">
+          <h4>„Byt splácí hypotéku. Když nájem vypadne, jsem v pasti.“</h4>
+          <div class="fit">→ Varianta KLID: 100 % nájmu každý měsíc, i za prázdný byt.</div>
+        </div>
+      </div>
+      <div class="persona">
+        <div class="pimg"><img src="assets/predani-klicu.webp" alt="Předání klíčů od zděděného bytu" loading="lazy"></div>
+        <div class="pbody">
+          <h4>„Zdědila jsem byt po rodičích. Nechci se o nic starat.“</h4>
+          <div class="fit">→ Převezmeme všechno: od inzerátu po předání klíčů. Zdarma.</div>
+        </div>
+      </div>
+      <div class="persona">
+        <div class="pimg"><img src="assets/majitel-skepticky.webp" alt="Majitel se špatnou zkušeností s realitkou" loading="lazy"></div>
+        <div class="pbody">
+          <h4>„S realitkou už nikdy. Jednou mi stačilo.“</h4>
+          <div class="fit">→ Žádné smlouvy, žádné pokuty. Když nedodáme, nic neplatíte.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VARIANTY ===== -->
+<section id="varianty" style="background:var(--sage);padding-block:64px">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Varianty a ceník</div>
+      <h2>Tři úrovně klidu. Ceny rovnou a bez hvězdiček.</h2>
+      <p>Vyberete si, kolik starostí nám předáte. Pro vás je pronájem vždy zdarma — my vyděláváme, jen když váš byt vydělává.</p>
+    </div>
+    <div class="tiers">
+      <div class="tier">
+        <h3>START</h3>
+        <div class="tsub">Pronajmeme za vás. Dál už si to řídíte sami.</div>
+        <div class="price">0 Kč <small>· žádné měsíční platby</small></div>
+        <ul>
+          <li>Inzerce, prohlídky a prověření zájemců (registry exekucí a insolvencí, příjmy, reference)</li>
+          <li>Nájemní smlouva a předávací protokol</li>
+          <li>Převod energií (ČEZ, innogy) za vás</li>
+          <li>Respektujeme vaše podmínky k nájemci</li>
+          <li>Odměnou je nám jeden měsíční nájem při podpisu</li>
+        </ul>
+        <a class="btn ghost" href="#poptavka">Chci jen pronajmout</a>
+      </div>
+      <div class="tier">
+        <h3>JISTOTA</h3>
+        <div class="tsub">Pronajmeme a jsme u toho, i když se něco pokazí.</div>
+        <div class="price">10 % <small>z nájmu měsíčně</small></div>
+        <ul>
+          <li>Vše z varianty START</li>
+          <li>Garance 50 % nájmu při výpadku plateb</li>
+          <li>Hlídání a vymáhání plateb za vás</li>
+          <li>Komunikace s nájemcem po celou dobu</li>
+        </ul>
+        <a class="btn ghost" href="#poptavka">Chci jistotu</a>
+      </div>
+      <div class="tier hi">
+        <span class="badge">Nejčastější volba majitelů</span>
+        <h3>KLID</h3>
+        <div class="tsub">Vy jen sledujete výpis z účtu. Všechno ostatní neseme my.</div>
+        <div class="price">15 % <small>z nájmu měsíčně</small></div>
+        <ul>
+          <li>Vše z varianty START</li>
+          <li><b>Garance 100 % nájmu — i za měsíce, kdy je byt prázdný</b></li>
+          <li>Smlouvu s nájemníkem neseme my, ne vy</li>
+          <li>Neplatiče řešíme a vyměníme my — obvykle do 3 měsíců</li>
+          <li>Průběžný dohled nad stavem nemovitosti</li>
+        </ul>
+        <a class="btn" href="#poptavka">Chci úplný klid</a>
+      </div>
+    </div>
+    <p class="tiers-note">Garance plateb běží od prvního obsazení bytu naším prověřeným nájemníkem. Poctivě: negarantujeme, že nájemníka najdeme — v kraji ale držíme zásobník lidí, kteří na bydlení právě čekají, takže obvykle nehledáme dlouho.</p>
+
+    <!-- srovnávací tabulka: vizuální argument za 10 sekund (blueprint kap. 04) -->
+    <div class="cmp-wrap">
+      <table class="cmp">
+        <thead><tr>
+          <th>Co vás čeká</th><th>Pronajímám sám</th><th>Běžná realitka</th><th class="me">Klidný majitel</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>Inzerce, prohlídky, papíry</td><td class="n">✕ <span class="m">vše na vás</span></td><td class="y">✓</td><td class="me y">✓ zdarma</td></tr>
+          <tr><td>Prověření nájemníka v registrech</td><td class="n">✕</td><td class="m">někdy</td><td class="me y">✓ vždy</td></tr>
+          <tr><td>Zprostředkovatelská smlouva a pokuty</td><td class="m">—</td><td class="n">✕ <span class="m">běžně ano</span></td><td class="me y">✓ nikdy</td></tr>
+          <tr><td>Nájem, když je byt prázdný</td><td class="n">✕ 0 Kč</td><td class="n">✕ 0 Kč</td><td class="me y">✓ až 100 %</td></tr>
+          <tr><td>Neplatič a jeho výměna</td><td class="n">✕ <span class="m">soud, měsíce</span></td><td class="n">✕ <span class="m">váš problém</span></td><td class="me y">✓ řešíme my</td></tr>
+          <tr><td>Převod energií, protokoly</td><td class="n">✕</td><td class="m">za příplatek</td><td class="me y">✓ v ceně</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== JAK TO FUNGUJE ===== -->
+<section id="jak">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Jak to funguje</div>
+      <h2>Od vyplnění formuláře může nájem běžet druhý den.</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="n2">1</div><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div><h4>Napíšete nám</h4><p>Kalkulačka nebo formulář. Stačí co, kde a telefon.</p></div>
+      <div class="step"><div class="n2">2</div><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></div><h4>Do 24 hodin voláme</h4><p>Schůzku domluvíme u vaší nemovitosti — jedeme my k vám.</p></div>
+      <div class="step"><div class="n2">3</div><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h3l2-3h8l2 3h3v11H3z"/><circle cx="12" cy="13" r="3.5"/></svg></div><h4>Přijedeme a nafotíme</h4><p>Tři varianty s čísly na stole, fotky na místě, inzerát týž den.</p></div>
+      <div class="step"><div class="n2">4</div><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="6"/><path d="M15.5 6.5a6 6 0 1 1 0 11"/></svg></div><h4>Nájem chodí</h4><p>Smlouvy, energie, prověření — a od první platby chodí nájem.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RECENZE (dvouúrovňový social proof, blueprint kap. 06) ===== -->
+<section id="recenze" style="background:var(--paper);padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Zkušenosti majitelů</div>
+      <h2>Nájmy, o které se náš tým stará, nekončí výpadkem.</h2>
+      <p>Značka Klidný majitel je nová — zkušenosti našeho týmu ne. Tohle říkají majitelé, jejichž nemovitosti spravujeme v rámci skupiny.</p>
+    </div>
+    <div class="reviews">
+      <div class="rev">
+        <div class="stars">★★★★★ <span class="ukazka">ukázka</span></div>
+        <p>„Od té doby, co pronájem převzal jejich tým, se mi nestalo, že by nájem nepřišel. Když končil nájemník, měli připraveného dalšího dřív, než jsem se stačil lekat.“</p>
+        <div class="who"><span class="ava">JV</span><div><b>majitel 2+1, Plzeň — Slovany</b><span>pronájem ve správě 4 roky</span></div></div>
+        <div class="reply"><b>Odpověď Klidného majitele:</b> Díky! Přesně tak to má vypadat — konec nájmu vidíme první, takže nový nájemník je připravený dopředu.</div>
+      </div>
+      <div class="rev">
+        <div class="stars">★★★★★ <span class="ukazka">ukázka</span></div>
+        <p>„Byt po mamince jsem nechtěla řešit s realitkou. Přijeli, všechno vysvětlili u nás v kuchyni, druhý den byly fotky v inzerátu. Jednou měsíčně mi přijde nájem a mám pokoj.“</p>
+        <div class="who"><span class="ava">HK</span><div><b>majitelka 3+1, Plzeň — Doubravka</b><span>zděděný byt</span></div></div>
+        <div class="reply"><b>Odpověď Klidného majitele:</b> Děkujeme za důvěru — a byt hlídáme dál, ať máte pokoj i příští roky.</div>
+      </div>
+      <div class="rev">
+        <div class="stars">★★★★★ <span class="ukazka">ukázka</span></div>
+        <p>„Splácím z nájmu hypotéku, takže jsem potřeboval jistotu. Vybral jsem plnou garanci — a v létě, když byl byt tři týdny prázdný, přišel nájem stejně. Přesně jak slíbili.“</p>
+        <div class="who"><span class="ava">MP</span><div><b>majitel 2+kk, Plzeň — Bory</b><span>investiční byt, varianta KLID</span></div></div>
+        <div class="reply"><b>Odpověď Klidného majitele:</b> Od toho garance je. Hypotéka nepočká — váš nájem taky ne.</div>
+      </div>
+    </div>
+    <p class="g-note">★ Recenze sbíráme na Google profilu firmy od prvního klienta — a na každou odpovídáme jménem. <span class="ukazka">ukázka</span> = ilustrační znění, nahradí se skutečnými recenzemi se souhlasem majitelů před spuštěním.</p>
+  </div>
+</section>
+
+<!-- ===== PŘÍBĚH — nezačali jsme včera ===== -->
+<section class="story" id="pribeh">
+  <div class="wrap inner">
+    <div>
+      <div class="eyebrow" style="font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--coral);font-weight:700;margin-bottom:10px">Kdo za tím stojí</div>
+      <h2>Nová značka. 22 let plzeňské praxe.</h2>
+      <p>Klidný majitel nevznikl v kanceláři startupu — vznikl z každodenní praxe lidí, kteří v Plzni pronajímají a spravují nemovitosti od roku 2004. Prošli jsme pojišťovnictvím, hypotékami, odhady i stovkami pronájmů, a pořád nás štvalo to samé: majitel je při pronájmu vždycky ten slabší.</p>
+      <p>Tak jsme postavili službu, kterou bychom sami chtěli: všechno zařídíme, nic nepodepisujete, a když je byt prázdný, nájem pošleme my. V Plzni začínáme, protože tady na každou nemovitost osobně dohlédneme.</p>
+      <div class="partners">
+        <div class="plogo">profiservis24 <span>provozovatel · hypotéky, pojištění, odhady</span></div>
+        <div class="plogo">Mix Reality <span>partnerská realitní kancelář · 110+ nemovitostí</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="story-photo"><img src="assets/byt-interier.webp" alt="Byt ve správě Klidného majitele" loading="lazy"></div>
+      <div class="story-card">
+        <div class="q">„Majitelé nám říkají: proč bych to dělal sám, když vy mi to uděláte líp — a nechcete za to ani korunu předem?“</div>
+        <div class="who">
+          <span class="ava"><svg viewBox="0 0 190 60" width="34"><path d="M6 44 H26 V30 L48 12 L70 30 V44 H96 Q106 28 116 44 H184" fill="none" stroke="#175C66" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div><b>Zakladatel Klidného majitele <span class="ukazka">foto a jméno doplníme</span></b><span>22 let v realitách · Plzeň, Přemyslova 2</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CO PRONAJMEME ===== -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Co převezmeme</div>
+      <h2>Všechno, co je nemovité.</h2>
+      <p>Nejčastěji byty — ale klidný majitel může mít i dům, garáž nebo halu.</p>
+    </div>
+    <div class="chips">
+      <span class="chip"><b>Byty</b> všech dispozic</span>
+      <span class="chip"><b>Rodinné domy</b></span>
+      <span class="chip"><b>Chaty a chalupy</b> (dlouhodobě)</span>
+      <span class="chip"><b>Garáže</b> a parkovací stání</span>
+      <span class="chip"><b>Pozemky</b></span>
+      <span class="chip"><b>Haly</b> a komerční prostory</span>
+      <span class="chip">Celý <b>Plzeňský kraj</b> — Plzeň, Klatovy, Rokycany, Domažlice, Tachov…</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HLEDÁM NÁJEM ===== -->
+<section class="seek" id="hledam">
+  <div class="wrap inner">
+    <div>
+      <h2>Hledáte naopak bydlení?</h2>
+      <p>Napište nám zdarma, co hledáte — dispozici, lokalitu a částku. Jakmile se objeví byt, který sedí, ozveme se vám dřív, než se dostane na inzertní portály.</p>
+      <p style="font-size:13.5px">Pro hledající je služba zdarma. Žádná registrace, žádné poplatky.</p>
+    </div>
+    <form class="mini-form" id="seek-form">
+      <label for="s-typ">Hledám</label>
+      <select id="s-typ"><option>Byt 1+kk / 1+1</option><option selected>Byt 2+kk / 2+1</option><option>Byt 3+kk a větší</option><option>Dům</option><option>Jiné</option></select>
+      <label for="s-kde">Lokalita</label>
+      <input id="s-kde" type="text" placeholder="např. Plzeň — Slovany" autocomplete="off">
+      <label for="s-max">Maximální nájem (Kč/měs.)</label>
+      <input id="s-max" type="text" inputmode="numeric" placeholder="např. 15 000" autocomplete="off">
+      <label for="s-mail">E-mail</label>
+      <input id="s-mail" type="email" placeholder="vas@email.cz" autocomplete="email">
+      <button class="btn" type="submit">Chci hlídat bydlení zdarma</button>
+      <div class="form-ok" id="seek-ok">Díky! Jakmile se objeví bydlení podle vašeho zadání, ozveme se. <span style="color:var(--muted)">(Prototyp — odeslání se napojí při vývoji.)</span></div>
+    </form>
+  </div>
+</section>
+
+<!-- ===== BLOG / PRŮVODCE ===== -->
+<section id="blog">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Průvodce majitele</div>
+      <h2>Rady, které jinde zabalí do mlhy. My je píšeme na rovinu.</h2>
+      <p>Praktické návody pro pronajímatele — smlouvy, daně, neplatiči. Nový článek každý týden.</p>
+    </div>
+    <div class="blog-grid">
+      <article class="post">
+        <div class="thumb"><img src="assets/majitel-skepticky.webp" alt="Majitel řeší neplatícího nájemníka" loading="lazy"></div>
+        <div class="body">
+          <span class="cat">Neplatiči</span>
+          <h4>Nájemník neplatí: co dělat krok za krokem (a čeho se vyvarovat)</h4>
+          <a class="stretch" href="pruvodce-najemnik-neplati.html">Přečíst návod →</a>
+        </div>
+      </article>
+      <article class="post">
+        <div class="thumb"><img src="assets/podpis-smlouvy.webp" alt="Podpis nájemní smlouvy" loading="lazy"></div>
+        <div class="body">
+          <span class="cat">Smlouvy · vzor zdarma</span>
+          <h4>Nájemní smlouva 2026: náležitosti, chyby a vzor ke stažení</h4>
+          <a class="stretch" href="pruvodce-najemni-smlouva.html">Stáhnout vzor →</a>
+        </div>
+      </article>
+      <article class="post">
+        <div class="thumb"><img src="assets/byt-interier.webp" alt="Byt jako zdroj příjmu" loading="lazy"></div>
+        <div class="body">
+          <span class="cat">Daně</span>
+          <h4>Daň z pronájmu: kalkulačka a návod bez chyb</h4>
+          <a class="stretch" href="pruvodce-dan-z-pronajmu.html">Spočítat daň →</a>
+        </div>
+      </article>
+    </div>
+    <div class="magnet">
+      <div>
+        <h3>Průvodce pronájmem v Plzni (PDF zdarma)</h3>
+        <p>Za kolik pronajmout v které čtvrti, jak prověřit nájemníka a jaké smlouvy podepsat. 20 stran z praxe — žádná teorie.</p>
+      </div>
+      <div>
+        <form id="magnet-form">
+          <input id="m-mail" type="email" placeholder="vas@email.cz" autocomplete="email" aria-label="E-mail pro zaslání průvodce">
+          <button class="btn" type="submit">Chci průvodce</button>
+        </form>
+        <div class="form-ok" id="magnet-ok" style="background:rgba(255,255,255,.12);border-color:var(--peach);color:#fff">Průvodce letí do vaší schránky. <span style="opacity:.7">(Prototyp.)</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA BAND ===== -->
+<div class="ctaband">
+  <img src="assets/podpis-smlouvy.webp" alt="" loading="lazy">
+  <div class="wrap inner">
+    <h2>Předejte nám klíče od starostí.</h2>
+    <p>Prohlídka a návrh nájmu zdarma. Žádné smlouvy předem — jen čísla na stole a vaše rozhodnutí.</p>
+    <a class="btn" href="#poptavka">Chci nezávaznou nabídku</a>
+  </div>
+</div>
+
+<!-- ===== FAQ ===== -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Časté dotazy</div>
+      <h2>Na rovinu.</h2>
+    </div>
+    <div class="faq" style="max-width:820px">
+      <details>
+        <summary>Co přesně znamená „garantujeme nájem, i když je byt prázdný“?</summary>
+        <div class="a">U varianty KLID vám posíláme 100 % sjednaného nájmu každý měsíc od prvního obsazení bytu naším nájemníkem — i za měsíce, kdy se byt zrovna mění nájemník nebo je prázdný. Garance je černá na bílém ve smlouvě.</div>
+      </details>
+      <details>
+        <summary>Co když nájemník přestane platit?</summary>
+        <div class="a">Vy to na výpisu nepoznáte — platby jdou dál z naší garance. Smlouvu s nájemníkem u garančních variant neseme my (byt si od vás pronajmeme a dál podnajímáme), takže neplatiče řešíme a vyměňujeme my, obvykle do tří měsíců.</div>
+      </details>
+      <details>
+        <summary>Kolik to celé stojí a co je v ceně?</summary>
+        <div class="a">Pronájem je pro vás vždy zdarma — včetně smluv, předávacího protokolu a převodu energií. Odměnou je nám jeden měsíční nájem při podpisu. Garance stojí 10 % (polovina nájmu jištěná) nebo 15 % (plná garance) z měsíčního nájmu. Žádné další poplatky neexistují.</div>
+      </details>
+      <details>
+        <summary>Musím podepsat zprostředkovatelskou smlouvu?</summary>
+        <div class="a">Ne. Jsme nejspíš jediní v kraji, kdo po majitelích žádnou zprostředkovatelskou smlouvu nechce. Nezavazujete se k ničemu a žádné pokuty vám nehrozí — závazky máme my vůči vám.</div>
+      </details>
+      <details>
+        <summary>Z čeho žijete, když je to zdarma?</summary>
+        <div class="a">Férově: z jednoho nájmu při podpisu a z 10–15 % za garanci. Žádné skryté poplatky. Vyděláváme jen tehdy, když váš byt vydělává — proto se staráme, aby nikdy nestál prázdný.</div>
+      </details>
+      <details>
+        <summary>Můžu si určit, koho v bytě nechci?</summary>
+        <div class="a">Ano — vaše podmínky (zvířata, kouření a podobně) do výběru promítneme a nájemce vybíráte s námi. Každého zájemce prověřujeme v registrech exekucí a insolvencí a ověřujeme příjmy a reference.</div>
+      </details>
+      <details>
+        <summary>Garantujete i to, že nájemníka najdete?</summary>
+        <div class="a">Poctivě: nalezení nájemníka garantovat nejde a kdo to slibuje, přehání. Držíme ale zásobník prověřených lidí, kteří v kraji bydlení právě hledají — proto byty obsazujeme rychle a nájem může běžet i druhý den po naší návštěvě.</div>
+      </details>
+      <details>
+        <summary>Kde všude fungujete?</summary>
+        <div class="a">V celém Plzeňském kraji — Plzeň, Klatovy, Rokycany, Domažlice, Tachov i menší obce. Začínáme tam, kde na každou nemovitost osobně dohlédneme, a postupně se rozšiřujeme.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ===== POPTÁVKA ===== -->
+<section class="contact" id="poptavka">
+  <div class="wrap inner">
+    <div>
+      <div class="sec-head" style="margin-bottom:20px">
+        <div class="eyebrow">Nezávazná poptávka</div>
+        <h2>Pošlete nám svůj byt. Zbytek je na nás.</h2>
+      </div>
+      <form class="cform" id="lead-form">
+        <label for="l-typ">Co pronajímáte</label>
+        <select id="l-typ"><option>Byt</option><option>Dům</option><option>Garáž / stání</option><option>Pozemek</option><option>Hala / komerční prostor</option><option>Jiné</option></select>
+        <label for="l-kde">Adresa nebo lokalita</label>
+        <input id="l-kde" type="text" placeholder="např. Plzeň — Doubravka" autocomplete="off">
+        <label for="l-tel">Telefon</label>
+        <input id="l-tel" type="tel" placeholder="+420" autocomplete="tel">
+        <label for="l-pozn">Poznámka (nepovinné)</label>
+        <textarea id="l-pozn" placeholder="např. byt 2+1 po rekonstrukci, volný od listopadu"></textarea>
+        <button class="btn" type="submit">Chci, ať mi zavoláte do 24 hodin</button>
+        <div class="form-ok" id="lead-ok">Děkujeme! Ozveme se do 24 hodin a domluvíme prohlídku zdarma. <span style="color:var(--muted)">(Prototyp — odeslání se napojí při vývoji.)</span></div>
+      </form>
+    </div>
+    <div class="side">
+      <div class="sec-head" style="margin-bottom:14px"><div class="eyebrow">Nebo rovnou</div><div class="big">+420 700 000 000</div></div>
+      <p style="color:var(--muted);font-size:15px">Po telefonu vám rovnou řekneme orientační nájem — známe ceny v každé plzeňské čtvrti i v okresech.</p>
+      <!-- podpora s tváří (blueprint kap. 03: člověk kupuje od člověka) -->
+      <div class="face">
+        <span class="ava"><svg viewBox="0 0 190 60" width="36"><path d="M6 44 H26 V30 L48 12 L70 30 V44 H96 Q106 28 116 44 H184" fill="none" stroke="#175C66" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div>
+          <b>Mluvíte vždy s jedním člověkem z Plzně <span class="ukazka">foto a jméno doplníme</span></b>
+          <p>Žádné call centrum. Telefony beru po–pá 8–18, na e-mail odpovídám do 2 hodin v pracovní době.</p>
+        </div>
+      </div>
+      <p style="font-size:13px;color:var(--muted);margin-top:14px">Kancelář: Přemyslova 2, Plzeň · IČO doplníme · provozuje profiservis24</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <svg viewBox="0 0 470 74" width="190" aria-label="Klidný majitel">
+        <path d="M8 56 H30 V38 L56 16 L82 38 V56 H112 Q122 38 132 56 H160" fill="none" stroke="#F2A48E" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="178" y="49" font-family="Schibsted Grotesk, sans-serif" font-weight="700" font-size="34" fill="#FFFFFF" letter-spacing="-0.5">klidný majitel</text>
+      </svg>
+      <p style="margin-top:12px;max-width:38ch">Garantovaný nájem a správa nemovitostí v Plzeňském kraji. Váš nájem chodí každý měsíc — i když je byt prázdný.</p>
+    </div>
+    <div>
+      <h5>Služby</h5>
+      <ul>
+        <li><a href="garance-a-cenik.html">Garance a ceník</a></li>
+        <li><a href="sprava-nemovitosti-plzen.html">Správa nemovitostí Plzeň</a></li>
+        <li><a href="#hledam">Hledám bydlení</a></li>
+        <li><a href="pruvodce.html">Průvodce majitele</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Důvěra a právo</h5>
+      <ul>
+        <li><a href="#pribeh">Kdo za tím stojí</a></li>
+        <li><a href="#recenze">Zkušenosti majitelů</a></li>
+        <li><a href="#">Obchodní podmínky</a> · <a href="#">GDPR</a> · <a href="#">Cookies</a></li>
+        <li><a href="#poptavka">Kontakt</a></li>
+      </ul>
+      <p style="margin-top:14px;font-size:12.5px">Provozuje profiservis24 · spolupracujeme s realitní kanceláří Mix Reality · Plzeň, Přemyslova 2</p>
+    </div>
+  </div>
+</footer>
+
+<div class="proto">Návrh · prototyp frontendu v2</div>
+
+<script>
+(function(){
+  // announcement bar — rotace 3 sdělení
+  var msgs = document.querySelectorAll('#announce .msg'), mi = 0;
+  setInterval(function(){
+    msgs[mi].classList.remove('on');
+    mi = (mi + 1) % msgs.length;
+    msgs[mi].classList.add('on');
+  }, 4500);
+
+  // sticky slogan po odscrollování hera
+  var ribbon = document.getElementById('ribbon');
+  var hero = document.querySelector('.hero');
+  function onScroll(){
+    var limit = hero.offsetTop + hero.offsetHeight - 80;
+    ribbon.classList.toggle('show', window.scrollY > limit);
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // kalkulačka — orientační rozpětí (Kč/měs.), Plzeň 2026
+  var base = {'1kk':[11000,13500],'2kk':[13500,16500],'3kk':[16500,20000],'4kk':[19000,24000],'dum':[22000,32000],'jine':[1500,6000]};
+  var kde = {'plzen':1,'okoli':0.85,'kraj':0.72};
+  var stav = {'novy':1.1,'dobry':1,'starsi':0.88};
+  function fmt(n){ return (Math.round(n/100)*100).toLocaleString('cs-CZ'); }
+  document.getElementById('c-btn').addEventListener('click', function(){
+    var t = document.getElementById('c-typ').value;
+    var k = kde[document.getElementById('c-kde').value];
+    var s = stav[document.getElementById('c-stav').value];
+    var lo = base[t][0]*k*s, hi = base[t][1]*k*s;
+    document.getElementById('c-range').textContent = fmt(lo) + ' – ' + fmt(hi) + ' Kč/měs.';
+    var g = document.getElementById('c-gar');
+    g.innerHTML = (t === 'jine')
+      ? 'U garáží, pozemků a hal stanovíme nájem individuálně po prohlídce.'
+      : 'S variantou <b>KLID</b> vám z toho chodí <b>100 % každý měsíc</b> — i za prázdné měsíce.';
+    document.getElementById('c-out').classList.add('show');
+  });
+
+  // formuláře — prototyp (konverzní event = odeslaný formulář, měří se jako Purchase)
+  function proto(formId, okId){
+    document.getElementById(formId).addEventListener('submit', function(e){
+      e.preventDefault();
+      document.getElementById(okId).classList.add('show');
+    });
+  }
+  proto('seek-form','seek-ok');
+  proto('lead-form','lead-ok');
+  proto('magnet-form','magnet-ok');
+})();
+</script>
+
+</body>
+</html>

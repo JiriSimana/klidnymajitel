@@ -1,0 +1,3 @@
+# Náhled pro klienta — před ostrým spuštěním nahradit povolujícím robots.txt
+User-agent: *
+Disallow: /
