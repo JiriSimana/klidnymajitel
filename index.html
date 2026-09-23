@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Garantovaný nájem a správa nemovitostí v Plzni. Váš nájem chodí každý měsíc — i když je byt prázdný. Zdarma, bez smluv a bez pokut.">
+<meta name="description" content="Garantovaný nájem a správa nemovitostí v Plzni. Váš nájem chodí každý měsíc — i když je byt prázdný. Zdarma, bez zprostředkovatelských smluv a bez pokut.">
 <meta name="robots" content="noindex, nofollow"><!-- náhled pro klienta — odstranit při ostrém spuštění -->
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <title>Web Klidný majitel</title>
@@ -353,7 +353,7 @@
         <div class="co-note">Přesnou částku potvrdíme po prohlídce zdarma — obvykle do 24 hodin.</div>
         <a class="btn" href="#poptavka" style="width:100%;text-align:center;margin-top:12px">Chci přesný návrh zdarma</a>
       </div>
-      <div class="gnote">Nezávazné · žádné smlouvy předem · žádné pokuty</div>
+      <div class="gnote">Nezávazné · žádné smlouvy předem · žádné pokuty za rozmyšlení</div>
     </div>
   </div>
 </div>
@@ -394,7 +394,7 @@
         <div class="pimg"><img src="assets/majitel-skepticky.webp" alt="Majitel se špatnou zkušeností s realitkou" loading="lazy"></div>
         <div class="pbody">
           <h4>„S realitkou už nikdy. Jednou mi stačilo.“</h4>
-          <div class="fit">→ Žádné smlouvy, žádné pokuty. Když nedodáme, nic neplatíte.</div>
+          <div class="fit">→ Žádné zprostředkovatelské smlouvy, žádné pokuty. Když nedodáme, nic neplatíte.</div>
         </div>
       </div>
     </div>
@@ -420,6 +420,7 @@
           <li>Převod energií (ČEZ, innogy) za vás</li>
           <li>Respektujeme vaše podmínky k nájemci</li>
           <li>Odměnou je nám jeden měsíční nájem při podpisu</li>
+          <li><b>Z nájmu 15 000 Kč vám měsíčně chodí celých 15 000 Kč</b> — žádné průběžné srážky</li>
         </ul>
         <a class="btn ghost" href="#poptavka">Chci jen pronajmout</a>
       </div>
@@ -430,6 +431,7 @@
         <ul>
           <li>Vše z varianty START</li>
           <li>Garance 50 % nájmu při výpadku plateb</li>
+          <li><b>Z nájmu 15 000 Kč vám měsíčně chodí 13 500 Kč</b></li>
           <li>Hlídání a vymáhání plateb za vás</li>
           <li>Komunikace s nájemcem po celou dobu</li>
         </ul>
@@ -446,6 +448,7 @@
           <li>Smlouvu s nájemníkem neseme my, ne vy</li>
           <li>Neplatiče řešíme a vyměníme my — obvykle do 3 měsíců</li>
           <li>Průběžný dohled nad stavem nemovitosti</li>
+          <li><b>Z nájmu 15 000 Kč vám měsíčně chodí 12 750 Kč</b> — vždy, i za prázdný byt</li>
         </ul>
         <a class="btn" href="#poptavka">Chci úplný klid</a>
       </div>
@@ -670,7 +673,7 @@
       </details>
       <details>
         <summary>Musím podepsat zprostředkovatelskou smlouvu?</summary>
-        <div class="a">Ne. Jsme nejspíš jediní v kraji, kdo po majitelích žádnou zprostředkovatelskou smlouvu nechce. Nezavazujete se k ničemu a žádné pokuty vám nehrozí — závazky máme my vůči vám.</div>
+        <div class="a">Ne. Jsme nejspíš jediní v kraji, kdo po majitelích žádnou zprostředkovatelskou smlouvu nechce. Podepisuje se až samotná nájemní smlouva, když se rozhodnete — a žádné pokuty za rozmyšlení či odchod v ní nejsou. Závazky máme my vůči vám.</div>
       </details>
       <details>
         <summary>Z čeho žijete, když je to zdarma?</summary>
@@ -796,7 +799,7 @@
     var g = document.getElementById('c-gar');
     g.innerHTML = (t === 'jine')
       ? 'U garáží, pozemků a hal stanovíme nájem individuálně po prohlídce.'
-      : 'S variantou <b>KLID</b> vám z toho chodí <b>100 % každý měsíc</b> — i za prázdné měsíce.';
+      : 'S variantou <b>KLID</b> vám měsíčně chodí <b>' + fmt((lo+hi)/2*0.85) + ' Kč čistého</b> — i za prázdné měsíce. Bez garance (START) je pronájem zcela zdarma.';
     document.getElementById('c-out').classList.add('show');
   });
 
