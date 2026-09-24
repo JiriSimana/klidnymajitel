@@ -7,15 +7,20 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="stylesheet" href="klidny.css">
 <style>
-  .year{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:26px;margin-top:10px;overflow-x:auto}
-  .year h3{font-size:18px;color:var(--deep)}
-  .year .row{display:flex;align-items:center;gap:10px;margin-top:18px;min-width:560px}
-  .year .lbl{width:150px;flex:none;font-size:13.5px;font-weight:600}
-  .year .lbl span{display:block;font-weight:400;font-size:12px;color:var(--muted)}
-  .year .mo{flex:1;aspect-ratio:1;max-width:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:"Schibsted Grotesk",sans-serif;font-weight:700;font-size:11px}
-  .year .ok{background:var(--petrol);color:#fff}
-  .year .gap{background:var(--sand);color:#8A6A2E;border:2px dashed #D9C49A}
-  .year .leg{margin-top:16px;font-size:13px;color:var(--muted)}
+  .money-year{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:26px;margin-top:10px}
+  .money-year h3{font-size:18px;color:var(--deep);margin-bottom:4px}
+  .money-year .sub{font-size:13.5px;color:var(--muted);margin-bottom:20px}
+  .brow{margin-bottom:22px}
+  .brow .blab{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:8px;flex-wrap:wrap}
+  .brow .blab b{font-family:"Schibsted Grotesk",sans-serif;font-size:15px;color:var(--deep)}
+  .brow .blab .sum{font-family:"Schibsted Grotesk",sans-serif;font-weight:900;font-size:22px;color:var(--petrol);font-variant-numeric:tabular-nums}
+  .bar{display:flex;height:38px;border-radius:9px;overflow:hidden;background:var(--sage)}
+  .bar span{display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden}
+  .bar .got{background:var(--petrol)}
+  .bar .fee{background:#9CBFB7;color:#fff}
+  .bar .lost{background:repeating-linear-gradient(45deg,#EFD9CC,#EFD9CC 7px,#E6C3AC 7px,#E6C3AC 14px);color:#8A4A2E}
+  .brow .note{font-size:12.5px;color:var(--muted);margin-top:6px}
+  .money-year .leg{border-top:1px dashed var(--line);padding-top:14px;font-size:14.5px;max-width:76ch}
 </style></head><body>
 
 <header class="site"><div class="wrap">
@@ -32,16 +37,26 @@
 
 <section><div class="wrap">
   <div class="sec-head"><div class="eyebrow">Rok v číslech</div><h2>Takhle vypadá rok s garancí KLID — a bez ní.</h2></div>
-  <div class="year">
-    <div class="row">
-      <div class="lbl">S garancí KLID <span>přišlo všech 12 nájmů</span></div>
-      <div class="mo ok">I</div><div class="mo ok">II</div><div class="mo ok">III</div><div class="mo ok">IV</div><div class="mo ok">V</div><div class="mo ok">VI</div><div class="mo ok">VII</div><div class="mo ok">VIII</div><div class="mo ok">IX</div><div class="mo ok">X</div><div class="mo ok">XI</div><div class="mo ok">XII</div>
+  <div class="money-year">
+    <h3>Kolik vám za rok reálně přijde na účet</h3>
+    <div class="sub">Stejný byt s nájmem 15 000 Kč. Jediný rozdíl: v létě se měnil nájemník a byt byl 3 měsíce prázdný.</div>
+    <div class="brow">
+      <div class="blab"><b>S garancí KLID</b><span class="sum">153 000 Kč za rok</span></div>
+      <div class="bar">
+        <span class="got" style="width:85%">12 nájmů × 12 750 Kč — chodí každý měsíc</span>
+        <span class="fee" style="width:15%">odměna</span>
+      </div>
+      <div class="note">Prázdné měsíce jste nepoznali — nájem poslal Klidný majitel.</div>
     </div>
-    <div class="row">
-      <div class="lbl">Bez garance <span>3 měsíce nepřišlo nic</span></div>
-      <div class="mo ok">I</div><div class="mo ok">II</div><div class="mo ok">III</div><div class="mo ok">IV</div><div class="mo ok">V</div><div class="mo gap">0</div><div class="mo gap">0</div><div class="mo ok">VIII</div><div class="mo ok">IX</div><div class="mo ok">X</div><div class="mo gap">0</div><div class="mo ok">XII</div>
+    <div class="brow">
+      <div class="blab"><b>Bez garance</b><span class="sum">135 000 Kč za rok</span></div>
+      <div class="bar">
+        <span class="got" style="width:75%">9 nájmů × 15 000 Kč</span>
+        <span class="lost" style="width:25%">3 měsíce nic: −45 000 Kč</span>
+      </div>
+      <div class="note">Tři prázdné měsíce = minus 45 000 Kč. A všechno papírování bylo na vás.</div>
     </div>
-    <div class="leg">Stejný byt (nájem 15 000 Kč), stejný rok — jen se v létě měnil nájemník: <b>s garancí KLID přišlo 153 000 Kč</b> (12 × 12 750 Kč po naší odměně), <b>bez garance 135 000 Kč</b> (jen 9 nájmů). Tři výpadkové měsíce stojí víc než celá roční odměna za klid.</div>
+    <div class="leg"><b>Rozdíl 18 000 Kč ve váš prospěch</b> — a to jsme počítali jen jeden horší rok. Klidný spánek je u tohoto bytu zadarmo, ještě vyděláte.</div>
   </div>
 </div></section>
 
@@ -117,7 +132,7 @@
 <div class="ctaband"><img src="assets/predani-klicu.webp" alt="" loading="lazy"><div class="wrap inner">
   <h2>Chcete přesná čísla pro váš byt?</h2>
   <p>Spočítáme nájem, ukážeme všechny tři varianty a necháme vás rozhodnout. Zdarma a bez závazků.</p>
-  <a class="btn" href="index.html#kalkulacka">Chci spočítat svůj nájem</a>
+  <a class="btn" href="index.html#kalkulacka">Spočítat můj nájem zdarma</a>
 </div></div>
 
 <footer><div class="wrap">
