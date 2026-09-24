@@ -113,6 +113,20 @@
   .tier .tsub{font-size:13.5px;color:var(--muted);margin-top:3px}
   .tier .price{font-family:"Schibsted Grotesk",sans-serif;font-weight:900;font-size:32px;color:var(--coral);margin:14px 0 2px;font-variant-numeric:tabular-nums}
   .tier .price small{font-size:13px;color:var(--muted);font-weight:400;font-family:"Instrument Sans",sans-serif}
+  .tcalc{background:var(--sage);border-radius:12px;padding:12px 16px;margin-top:14px;font-size:13.5px}
+  .tcalc .r{display:flex;justify-content:space-between;align-items:baseline;padding:3px 0}
+  .tcalc .r b{font-variant-numeric:tabular-nums}
+  .tcalc .big{font-family:"Schibsted Grotesk",sans-serif;font-weight:900;font-size:22px;color:var(--deep)}
+  .why{background:var(--deep);color:#E9F1EC}
+  .why .sec-head h2{color:#fff}
+  .why .sec-head p{color:#9FC2BB}
+  .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:820px){.why-grid{grid-template-columns:1fr}}
+  .wcard{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:22px}
+  .wcard h4{font-size:17px;color:#fff;margin-bottom:7px}
+  .wcard p{font-size:14px;color:#BFD6CF}
+  .wcard.money{border-color:var(--peach)}
+  .wcard.money h4{color:var(--peach)}
   .tier ul{list-style:none;margin-top:14px;flex:1}
   .tier ul li{padding:7px 0 7px 26px;position:relative;font-size:14.5px;border-bottom:1px dashed var(--line)}
   .tier ul li:last-child{border-bottom:none}
@@ -134,7 +148,7 @@
   .m{color:var(--muted);font-size:12.5px}
 
   /* jak to funguje */
-  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
   @media(max-width:860px){.steps{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:520px){.steps{grid-template-columns:1fr}}
   .step{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:20px}
@@ -385,7 +399,7 @@
         <div class="pimg"><img src="assets/majitel-investor.webp" alt="Majitel investičního bytu v klidu kontroluje platby" loading="lazy"></div>
         <div class="pbody">
           <h4>„Byt splácí hypotéku. Když nájem vypadne, jsem v pasti.“</h4>
-          <div class="fit">→ Varianta KLID: 100 % nájmu každý měsíc, i za prázdný byt.</div>
+          <div class="fit">→ Varianta KLID: nájem vám chodí každý měsíc — i za prázdný byt.</div>
         </div>
       </div>
       <div class="persona">
@@ -417,42 +431,52 @@
     <div class="tiers">
       <div class="tier">
         <h3>START</h3>
-        <div class="tsub">Pronajmeme za vás. Dál už si to řídíte sami.</div>
-        <div class="price">0 Kč <small>· žádné měsíční platby</small></div>
+        <div class="tsub">Pronajmeme za vás. Dál si to řídíte sami.</div>
+        <div class="tcalc">
+          <div class="r"><span>Tržní nájem</span><b>15 000 Kč</b></div>
+          <div class="r"><span>Kolik dostanete</span><b>100 %</b></div>
+          <div class="r"><span>Pro vás měsíčně</span><b class="big">15 000 Kč</b></div>
+        </div>
         <ul>
-          <li>Inzerce, prohlídky a prověření zájemců (registry exekucí a insolvencí, příjmy, reference)</li>
-          <li>Nájemní smlouva a předávací protokol</li>
-          <li>Převod energií (ČEZ, innogy) za vás</li>
-          <li>Respektujeme vaše podmínky k nájemci (kuřáci, zvířata…)</li>
-          <li>Odměnou je nám jeden nájem při podpisu — <b>hradí ho nájemce, ne vy</b></li>
-          <li><b>Dostáváte 100 % nájmu</b> — žádné měsíční srážky</li>
+          <li>Cena: <b>0 Kč</b> — odměnou je nám jeden nájem a hradí ho nájemce</li>
+          <li>Nájem při prázdném bytě: —</li>
+          <li>Nájem u neplatiče: —</li>
+          <li>Inzerce, prohlídky, prověření, smlouvy i převod energií za vás</li>
+          <li>Vaše podmínky k nájemci platí (kuřáci, zvířata…)</li>
         </ul>
         <a class="btn ghost" href="#poptavka">Chci jen pronajmout</a>
       </div>
       <div class="tier">
         <h3>JISTOTA</h3>
-        <div class="tsub">Pronajmeme a jsme u toho, i když se něco pokazí.</div>
-        <div class="price">90 % <small>nájmu pro vás · naše odměna 10 %</small></div>
+        <div class="tsub">Pronajmeme a hlídáme. I kdyby přestal platit.</div>
+        <div class="tcalc">
+          <div class="r"><span>Tržní nájem</span><b>15 000 Kč</b></div>
+          <div class="r"><span>Kolik dostanete</span><b>90 %</b></div>
+          <div class="r"><span>Pro vás měsíčně</span><b class="big">13 500 Kč</b></div>
+        </div>
         <ul>
-          <li>Vše z varianty START</li>
-          <li><b>Při výpadku plateb vám posíláme 50 % nájmu</b> — z nájmu 15 000 Kč tedy 7 500 Kč</li>
-          <li>Hlídání a vymáhání plateb za vás</li>
-          <li>Komunikace s nájemcem po celou dobu</li>
+          <li>Cena: <b>10 %</b> z nájmu</li>
+          <li>Nájem při prázdném bytě: <b>50 %</b></li>
+          <li>Nájem u neplatiče: <b>50 %</b> — a vymáháme my</li>
+          <li>Vše ze STARTU + hlídání plateb a komunikace s nájemcem</li>
         </ul>
         <a class="btn ghost" href="#poptavka">Chci jistotu</a>
       </div>
       <div class="tier hi">
-        <span class="badge">Nejčastější volba majitelů</span>
+        <span class="badge">Bez rizika</span>
         <h3>KLID</h3>
         <div class="tsub">Vy jen sledujete výpis z účtu. Všechno ostatní neseme my.</div>
-        <div class="price">85 % <small>nájmu pro vás · naše odměna 15 %</small></div>
+        <div class="tcalc">
+          <div class="r"><span>Tržní nájem</span><b>15 000 Kč</b></div>
+          <div class="r"><span>Kolik dostanete</span><b>85 %</b></div>
+          <div class="r"><span>Pro vás měsíčně</span><b class="big">12 750 Kč</b></div>
+        </div>
         <ul>
-          <li>Vše z varianty START</li>
-          <li><b>Nájem vám chodí i za prázdné měsíce — kryjeme až 3 měsíce v řadě</b></li>
-          <li>Smlouvu s nájemníkem neseme my, ne vy</li>
-          <li>Neplatiče řešíme a vyměníme my — obvykle do 3 měsíců</li>
-          <li>Dohled nad stavem bytu — <b>2× ročně fotoreport</b></li>
-          <li><b>Z nájmu 15 000 Kč vám chodí 12 750 Kč</b> — vždy, i za prázdný byt</li>
+          <li>Cena: <b>15 %</b> z nájmu</li>
+          <li>Nájem při prázdném bytě: <b>100 %</b> (kryjeme až 3 měsíce v řadě)</li>
+          <li>Nájem u neplatiče: <b>100 %</b> — smlouvu s ním neseme my</li>
+          <li>Výměna problémového nájemce do ~3 měsíců</li>
+          <li>Dohled nad bytem — 2× ročně fotoreport</li>
         </ul>
         <a class="btn" href="#poptavka">Chci úplný klid</a>
       </div>
@@ -482,14 +506,35 @@
 <section id="jak">
   <div class="wrap">
     <div class="sec-head">
-      <div class="eyebrow">Jak to funguje</div>
+      <div class="eyebrow">Průběh spolupráce</div>
       <h2>Od vyplnění formuláře může nájem běžet druhý den.</h2>
     </div>
     <div class="steps">
-      <div class="step"><div class="n2">1</div><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div><h4>Napíšete nám</h4><p>Kalkulačka nebo formulář. Stačí co, kde a telefon.</p></div>
-      <div class="step"><div class="n2">2</div><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></div><h4>Do 24 hodin voláme</h4><p>Schůzku domluvíme u vaší nemovitosti — jedeme my k vám.</p></div>
-      <div class="step"><div class="n2">3</div><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h3l2-3h8l2 3h3v11H3z"/><circle cx="12" cy="13" r="3.5"/></svg></div><h4>Přijedeme a domluvíme se</h4><p>Varianty s čísly na stole, domluva spolupráce, fotky na místě — inzerát běží týž den.</p></div>
-      <div class="step"><div class="n2">4</div><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="6"/><path d="M15.5 6.5a6 6 0 1 1 0 11"/></svg></div><h4>Nájem chodí</h4><p>Smlouvy, energie, prověření — a celý rok se o nájem i byt staráme my.</p></div>
+      <div class="step"><div class="n2">1</div><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div><h4>Naceníme váš pronájem</h4><p>Vyplníte kalkulačku — zatím nikam nemusíte, vše proběhne elektronicky. Do 24 hodin se ozveme s čísly.</p></div>
+      <div class="step"><div class="n2">2</div><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></div><h4>Přijedeme a domluvíme se</h4><p>Nemovitost spolu projdeme u vás. Ukážeme všechny varianty s přesnými částkami — nic nepodepisujete předem.</p></div>
+      <div class="step"><div class="n2">3</div><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h3l2-3h8l2 3h3v11H3z"/><circle cx="12" cy="13" r="3.5"/></svg></div><h4>Nabídneme vaši nemovitost</h4><p>Profesionální fotky rovnou na místě, prezentace a inzerce — inzerát běží ještě týž den.</p></div>
+      <div class="step"><div class="n2">4</div><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></div><h4>Vybereme a prověříme nájemníka</h4><p>Registry exekucí a insolvencí, příjmy, reference — bez výjimky. Vaše podmínky přitom platí.</p></div>
+      <div class="step"><div class="n2">5</div><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 7l3-3 3 3-3 3z"/><path d="M13 8L4 17v3h3l9-9"/></svg></div><h4>Podpis a předání</h4><p>Nájemní smlouvu, předávací protokol i převod energií vyřídíme my. Vy jen podepíšete.</p></div>
+      <div class="step"><div class="n2">6</div><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="6"/><path d="M15.5 6.5a6 6 0 1 1 0 11"/></svg></div><h4>Nájem chodí</h4><p>Každý měsíc na váš účet. Byt hlídáme celý rok a 2× ročně vám pošleme fotoreport.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CO ŘEŠÍME ZA VÁS (problém → řešení) ===== -->
+<section class="why" id="duvera">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow" style="color:var(--peach)">Co řešíme za vás</div>
+      <h2>S námi se starostí bát nemusíte.</h2>
+      <p>Neplatiči, prázdné měsíce, papírování. Všechno, co majitele při pronájmu tíží, přebíráme my — vy jen sledujete výpis z účtu.</p>
+    </div>
+    <div class="why-grid">
+      <div class="wcard"><h4>Neplatiči</h4><p>S námi se jich bát nemusíte. Platby hlídáme, u garance vám peníze chodí dál z našeho fondu — a výměnu nájemníka řešíme my, ne vy.</p></div>
+      <div class="wcard"><h4>Prázdný byt</h4><p>U varianty KLID vám nájem chodí i za měsíce, kdy byt nikdo neobývá — kryjeme až 3 měsíce v řadě, než ho znovu obsadíme.</p></div>
+      <div class="wcard"><h4>Zničený byt</h4><p>Nájemníka prověříme bez výjimky, byt pravidelně kontrolujeme a 2× ročně vám pošleme fotoreport. Škody kryje kauce.</p></div>
+      <div class="wcard"><h4>Papírování</h4><p>Smlouvy, předávací protokoly, převody energií, upomínky i komunikace s nájemcem — všechno vyřídíme my. Vy nepodepisujete nic předem.</p></div>
+      <div class="wcard"><h4>Bydlíte daleko?</h4><p>Nevadí. My jsme z Plzně a na vaši nemovitost fyzicky dohlédneme za vás — jako bychom ji měli vlastní.</p></div>
+      <div class="wcard money"><h4>Z čeho tedy žijeme?</h4><p>Férově: z jednoho nájmu při podpisu (hradí ho nájemce) a z 10–15 % za garanci. Vyděláváme, jen když váš byt vydělává — proto se staráme, aby nikdy nestál prázdný.</p></div>
     </div>
   </div>
 </section>
