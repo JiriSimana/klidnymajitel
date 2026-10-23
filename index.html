@@ -673,9 +673,11 @@
       <label for="s-max">Maximální nájem (Kč/měs.)</label>
       <input id="s-max" type="text" inputmode="numeric" placeholder="např. 15 000" autocomplete="off">
       <label for="s-mail">E-mail</label>
-      <input id="s-mail" type="email" placeholder="vas@email.cz" autocomplete="email">
+      <input id="s-mail" type="email" placeholder="vas@email.cz" autocomplete="email" required>
+      <input class="hp-web" type="text" name="web" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;border:0;padding:0">
       <button class="btn" type="submit">Posílat mi nabídky zdarma</button>
-      <div class="form-ok" id="seek-ok">Díky! Jakmile se objeví bydlení podle vašeho zadání, ozveme se. <span style="color:var(--muted)">(Prototyp — odeslání se napojí při vývoji.)</span></div>
+      <div class="form-ok" id="seek-ok">Díky! Jakmile se objeví bydlení podle Vašeho zadání, ozveme se.</div>
+      <div class="form-ok" id="seek-ok-err" style="border-left-color:#B4462A">Odeslání se nepovedlo. Zkuste to prosím znovu, nebo napište na info@klidnymajitel.cz.</div>
     </form>
   </div>
 </section>
@@ -789,12 +791,14 @@
         <label for="l-kde">Adresa nebo lokalita</label>
         <input id="l-kde" type="text" placeholder="např. Plzeň — Doubravka" autocomplete="off">
         <label for="l-tel">Telefon</label>
-        <input id="l-tel" type="tel" placeholder="+420" autocomplete="tel">
+        <input id="l-tel" type="tel" placeholder="+420" autocomplete="tel" required>
         <label for="l-pozn">Poznámka (nepovinné)</label>
         <textarea id="l-pozn" placeholder="např. byt 2+1 po rekonstrukci, volný od listopadu"></textarea>
+        <input class="hp-web" type="text" name="web" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;border:0;padding:0">
         <button class="btn" type="submit">Odeslat poptávku</button>
         <p style="font-size:13px;color:var(--muted);margin-top:8px">Ozveme se do 24 hodin. Nezávazně.</p>
-        <div class="form-ok" id="lead-ok">Děkujeme! Ozveme se do 24 hodin a domluvíme prohlídku zdarma. <span style="color:var(--muted)">(Prototyp — odeslání se napojí při vývoji.)</span></div>
+        <div class="form-ok" id="lead-ok">Děkujeme! Ozveme se do 24 hodin a domluvíme prohlídku zdarma.</div>
+        <div class="form-ok" id="lead-ok-err" style="border-left-color:#B4462A">Odeslání se nepovedlo. Zkuste to prosím znovu, nebo zavolejte na +420 731 618 347.</div>
       </form>
     </div>
     <div class="side">
@@ -894,15 +898,43 @@
     document.getElementById('c-out').classList.add('show');
   });
 
-  // formuláře — prototyp (konverzní event = odeslaný formulář, měří se jako Purchase)
-  function proto(formId, okId){
-    document.getElementById(formId).addEventListener('submit', function(e){
+  // formuláře — odeslání přes /api/lead (Resend); konverzní event = úspěšně odeslaný formulář
+  function wire(formId, okId, build){
+    var form = document.getElementById(formId);
+    form.addEventListener('submit', function(e){
       e.preventDefault();
-      document.getElementById(okId).classList.add('show');
+      var btn = form.querySelector('button[type="submit"]');
+      var ok = document.getElementById(okId);
+      var err = document.getElementById(okId + '-err');
+      ok.classList.remove('show'); if (err) err.classList.remove('show');
+      var data = build();
+      data.web = form.querySelector('.hp-web') ? form.querySelector('.hp-web').value : '';
+      btn.disabled = true; var orig = btn.textContent; btn.textContent = 'Odesílám…';
+      fetch('/api/lead', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      }).then(function(r){ return r.ok ? r.json() : Promise.reject(); })
+        .then(function(){ ok.classList.add('show'); form.reset(); })
+        .catch(function(){ if (err) err.classList.add('show'); })
+        .finally(function(){ btn.disabled = false; btn.textContent = orig; });
     });
   }
-  proto('seek-form','seek-ok');
-  proto('lead-form','lead-ok');
+  wire('seek-form','seek-ok', function(){
+    return { form:'seek',
+      cil: document.getElementById('s-cil').value,
+      typ: document.getElementById('s-typ').value,
+      kde: document.getElementById('s-kde').value,
+      max: document.getElementById('s-max').value,
+      mail: document.getElementById('s-mail').value };
+  });
+  wire('lead-form','lead-ok', function(){
+    return { form:'lead',
+      typ: document.getElementById('l-typ').value,
+      kde: document.getElementById('l-kde').value,
+      tel: document.getElementById('l-tel').value,
+      pozn: document.getElementById('l-pozn').value };
+  });
 })();
 </script>
 
