@@ -18,8 +18,10 @@
   .pies{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:6px 0 18px}
   @media(max-width:720px){.pies{grid-template-columns:1fr}}
   .pie{text-align:center;background:#FAFBF9;border:1px solid var(--line);border-radius:14px;padding:18px 16px}
-  .pie .donut{width:46mm;max-width:62%;margin:0 auto 10px;display:block}
-  .pie b{display:block;font-family:"Schibsted Grotesk",sans-serif;font-size:16px;color:var(--deep)}
+  .pie .donut{width:40mm;max-width:56%;margin:0 auto 12px;display:block}
+  .pie .amt{font-family:"Schibsted Grotesk",sans-serif;font-weight:900;font-size:27px;letter-spacing:-.01em;color:var(--deep);font-variant-numeric:tabular-nums;line-height:1.1}
+  .pie .amt small{display:block;font-family:"Instrument Sans",sans-serif;font-size:13px;font-weight:400;color:var(--muted);margin-top:3px}
+  .pie b{display:block;font-family:"Schibsted Grotesk",sans-serif;font-size:16px;color:var(--deep);margin-top:10px}
   .pie span{display:block;font-size:13.5px;color:var(--muted);margin-top:6px;line-height:1.5}
   .pie span b{display:inline;font-size:13.5px;color:var(--ink)}
   .brow{margin-bottom:22px}
@@ -57,9 +59,10 @@
         <svg viewBox="0 0 42 42" class="donut">
           <circle cx="21" cy="21" r="15.9155" fill="none" stroke="#E7F0E9" stroke-width="7"/>
           <circle cx="21" cy="21" r="15.9155" fill="none" stroke="#175C66" stroke-width="7" stroke-dasharray="100 0" transform="rotate(-90 21 21)"/>
-          <text x="21" y="20" text-anchor="middle" font-size="6.2" font-weight="900" font-family="Schibsted Grotesk, sans-serif" fill="#0C3A42">153 000 Kč</text>
-          <text x="21" y="26" text-anchor="middle" font-size="3" fill="#5C6E6B">za rok na účtu</text>
+          <text x="21" y="22.5" text-anchor="middle" font-size="8.5" font-weight="900" font-family="Schibsted Grotesk, sans-serif" fill="#0C3A42">12</text>
+          <text x="21" y="27" text-anchor="middle" font-size="2.9" fill="#5C6E6B">měsíců nájmu</text>
         </svg>
+        <div class="amt">153 000 Kč<small>za rok na účtu</small></div>
         <b>S garancí KLID</b>
         <span>Nájem přišel <b>všech 12 měsíců</b> (12 × 12 750 Kč). Prázdné měsíce jste nepoznali — nájem poslal Klidný majitel.</span>
       </div>
@@ -68,9 +71,10 @@
           <circle cx="21" cy="21" r="15.9155" fill="none" stroke="#E7F0E9" stroke-width="7"/>
           <circle cx="21" cy="21" r="15.9155" fill="none" stroke="#175C66" stroke-width="7" stroke-dasharray="75 25" transform="rotate(-90 21 21)"/>
           <circle cx="21" cy="21" r="15.9155" fill="none" stroke="#E4684A" stroke-width="7" stroke-dasharray="0 75 25 0" transform="rotate(-90 21 21)"/>
-          <text x="21" y="20" text-anchor="middle" font-size="6.2" font-weight="900" font-family="Schibsted Grotesk, sans-serif" fill="#0C3A42">135 000 Kč</text>
-          <text x="21" y="26" text-anchor="middle" font-size="3" fill="#5C6E6B">za rok na účtu</text>
+          <text x="21" y="22.5" text-anchor="middle" font-size="8.5" font-weight="900" font-family="Schibsted Grotesk, sans-serif" fill="#0C3A42">9</text>
+          <text x="21" y="27" text-anchor="middle" font-size="2.9" fill="#5C6E6B">měsíců nájmu</text>
         </svg>
+        <div class="amt">135 000 Kč<small>za rok na účtu</small></div>
         <b>Bez garance</b>
         <span>Nájem přišel jen <b>9 měsíců</b> (9 × 15 000 Kč). <span style="color:#B4462A;font-weight:700">3 červené měsíce = 0 Kč, tedy −45 000 Kč.</span> A papírování bylo na Vás.</span>
       </div>
