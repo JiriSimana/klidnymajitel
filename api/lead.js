@@ -3,7 +3,7 @@
 //   RESEND_API_KEY  – API klíč Resend (povinné)
 //   LEAD_TO         – kam poptávky chodí (výchozí info@klidnymajitel.cz)
 //   LEAD_FROM       – odesílatel; doména musí být ověřená v Resend
-//                     (výchozí "Klidný majitel <poptavky@klidnymajitel.cz>")
+//                     (výchozí "Klidný majitel <poptavky@info.klidnymajitel.cz>")
 
 const esc = (s) =>
   String(s || "")
@@ -59,7 +59,7 @@ module.exports = async (req, res) => {
     `<p style="font-family:sans-serif;color:#888;font-size:13px">Odesláno z formuláře na www.klidnymajitel.cz</p>`;
 
   const payload = {
-    from: process.env.LEAD_FROM || "Klidný majitel <poptavky@klidnymajitel.cz>",
+    from: process.env.LEAD_FROM || "Klidný majitel <poptavky@info.klidnymajitel.cz>",
     to: [process.env.LEAD_TO || "info@klidnymajitel.cz"],
     subject,
     html,
