@@ -41,6 +41,7 @@ module.exports = async (req, res) => {
         ["Co pronajímá", d.typ],
         ["Adresa / lokalita", d.kde],
         ["Telefon", d.tel],
+        ["E-mail", d.mail],
         ["Poznámka", d.pozn],
       ];
 
@@ -58,13 +59,14 @@ module.exports = async (req, res) => {
     `</table>` +
     `<p style="font-family:sans-serif;color:#888;font-size:13px">Odesláno z formuláře na www.klidnymajitel.cz</p>`;
 
+  const FROM = process.env.LEAD_FROM || "Klidný majitel <poptavky@info.klidnymajitel.cz>";
   const payload = {
-    from: process.env.LEAD_FROM || "Klidný majitel <poptavky@info.klidnymajitel.cz>",
+    from: FROM,
     to: [process.env.LEAD_TO || "info@klidnymajitel.cz"],
     subject,
     html,
   };
-  if (isSeek && d.mail) payload.reply_to = String(d.mail).slice(0, 200);
+  if (d.mail) payload.reply_to = String(d.mail).slice(0, 200);
 
   try {
     const r = await fetch("https://api.resend.com/emails", {
@@ -79,6 +81,35 @@ module.exports = async (req, res) => {
       const t = await r.text();
       console.error("resend-error", r.status, t.slice(0, 300));
       return res.status(502).json({ ok: false, error: "send" });
+    }
+
+    // poděkování odesílateli (když uvedl e-mail) — selhání nevadí, poptávka už je u nás
+    if (d.mail) {
+      const thanks = {
+        from: FROM,
+        to: [String(d.mail).slice(0, 200)],
+        subject: isSeek
+          ? "Děkujeme — Vaše zadání evidujeme | Klidný majitel"
+          : "Děkujeme za poptávku — ozveme se do 24 hodin | Klidný majitel",
+        html:
+          `<div style="font-family:sans-serif;font-size:15px;color:#14262A">` +
+          `<p>Dobrý den,</p>` +
+          (isSeek
+            ? `<p>Vaše zadání evidujeme. Jakmile se objeví nemovitost podle Vašich podmínek, ozveme se Vám dřív, než se dostane na inzertní portály.</p>`
+            : `<p>děkujeme za Vaši poptávku. Ozveme se Vám <b>do 24 hodin</b> a domluvíme nezávaznou prohlídku zdarma.</p>`) +
+          `<p>Tým Klidný majitel<br>` +
+          `<span style="color:#666">Petr Živčák · +420 731 618 347 · www.klidnymajitel.cz<br>` +
+          `Přemyslova 111/3, Plzeň · provozuje Profiservis24 s.r.o.</span></p></div>`,
+      };
+      try {
+        await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+          body: JSON.stringify(thanks),
+        });
+      } catch (e) {
+        console.error("thanks-error", e && e.message);
+      }
     }
     return res.status(200).json({ ok: true });
   } catch (e) {

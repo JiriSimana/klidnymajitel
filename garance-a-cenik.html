@@ -24,6 +24,29 @@
   .pie b{display:block;font-family:"Schibsted Grotesk",sans-serif;font-size:16px;color:var(--deep);margin-top:10px}
   .pie span{display:block;font-size:13.5px;color:var(--muted);margin-top:6px;line-height:1.5}
   .pie span b{display:inline;font-size:13.5px;color:var(--ink)}
+  /* proces / tok peněz */
+  .flow{display:grid;grid-template-columns:1fr auto 1.2fr auto 1fr;gap:10px;align-items:stretch;margin-top:26px}
+  .fnode{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:18px 16px;text-align:center;display:flex;flex-direction:column;gap:6px;justify-content:center}
+  .fnode.fmid{border:2px solid var(--petrol);background:#F2F7F5}
+  .fnode.fyou{border-color:var(--coral)}
+  .fwho{font-family:"Schibsted Grotesk",sans-serif;font-weight:900;font-size:17px;color:var(--deep)}
+  .fsub{font-size:13.5px;color:var(--muted);line-height:1.45}
+  .ftag{font-size:12px;font-weight:700;color:var(--petrol);background:var(--sage);border-radius:999px;padding:4px 10px;margin:4px auto 0;display:inline-block}
+  .farr{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--coral);min-width:92px}
+  .farr svg{width:56px}
+  .fmoney{font-size:12.5px;font-weight:700;color:var(--coral);white-space:nowrap}
+  .flow-note{margin-top:18px;font-size:14.5px;color:var(--ink);background:var(--sand);border-radius:12px;padding:13px 16px;max-width:86ch}
+  .grid3.opr{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+  .opr-card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:18px}
+  .opr-card.me{border-color:var(--petrol)}
+  .opr-card h4{font-size:15.5px;color:var(--deep);margin-bottom:6px}
+  .opr-card p{font-size:14px;color:var(--muted);line-height:1.55}
+  @media(max-width:860px){
+    .flow{grid-template-columns:1fr}
+    .farr{flex-direction:row;gap:8px;min-height:44px}
+    .farr svg{transform:rotate(90deg);width:30px}
+    .grid3.opr{grid-template-columns:1fr}
+  }
   .brow{margin-bottom:22px}
   .brow .blab{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:8px;flex-wrap:wrap}
   .brow .blab b{font-family:"Schibsted Grotesk",sans-serif;font-size:15px;color:var(--deep)}
@@ -83,8 +106,40 @@
   </div>
 </div></section>
 
+<section id="proces"><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">Jak to probíhá</div><h2>Kdo s kým má smlouvu a kudy tečou peníze.</h2>
+  <p style="color:var(--muted);max-width:66ch;margin-top:8px">Žádné drobné písmo: byt si od Vás pronajmeme my a dál ho podnajímáme. Vy máte jedinou smlouvu — s námi.</p></div>
+
+  <div class="flow">
+    <div class="fnode">
+      <div class="fwho">Bydlící</div>
+      <div class="fsub">podnájemník, kterého prověříme a vybereme</div>
+      <div class="ftag">s námi má podnájemní smlouvu</div>
+    </div>
+    <div class="farr"><span class="fmoney">nájem do 15. dne</span><svg viewBox="0 0 60 24" aria-hidden="true"><path d="M2 12 H50 M42 4 L52 12 L42 20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="fnode fmid">
+      <div class="fwho">Klidný majitel</div>
+      <div class="fsub">Profiservis24 s.r.o. — hlídáme platby, byt i papíry</div>
+      <div class="ftag">s Vámi má nájemní smlouvu, garantuje ji advokát</div>
+    </div>
+    <div class="farr"><span class="fmoney">Vaše část do 20. dne</span><svg viewBox="0 0 60 24" aria-hidden="true"><path d="M2 12 H50 M42 4 L52 12 L42 20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="fnode fyou">
+      <div class="fwho">Vy — majitel</div>
+      <div class="fsub">sledujete výpis z účtu</div>
+      <div class="ftag">peníze chodí i za prázdný byt — dle varianty</div>
+    </div>
+  </div>
+  <p class="flow-note">Platí to po celou dobu nájemní smlouvy: bydlící platí nám, Vám odchází Vaše část nejpozději do 20. dne v měsíci — a když bydlící vypadne, kryjeme výpadek z našich prostředků a nasadíme nového.</p>
+
+  <div class="grid3 opr">
+    <div class="opr-card"><h4>Drobné opravy — bydlící</h4><p>Kapající kohoutek a běžné závady hradí ze zákona bydlící (nařízení vlády č. 308/2015 Sb.), limit je ve smlouvě.</p></div>
+    <div class="opr-card"><h4>Větší opravy a revize — majitel</h4><p>Porouchaný kotel, revize plynu a elektřiny hradí majitel. Jde o Váš majetek — my do něj nezasahujeme.</p></div>
+    <div class="opr-card me"><h4>Organizace — my</h4><p>O vše se postaráme: zajistíme řemeslníka, pohlídáme cenu i výsledek. Vy jen schválíte. Škody způsobené bydlícím kryje kauce a jeho odpovědnost ve smlouvě.</p></div>
+  </div>
+</div></section>
+
 <section style="background:var(--sage)"><div class="wrap">
-  <div class="sec-head"><div class="eyebrow">Varianty</div><h2>Tři nabídky Vaší jistoty nájmu.</h2></div>
+  <div class="sec-head"><div class="eyebrow">Varianty</div><h2>Tři varianty pronájmu. Vyberte si tu svou.</h2></div>
   <div class="tiers">
       <div class="tier">
         <h3>START</h3>
@@ -115,6 +170,7 @@
           <li>Cena: <b>10 %</b> z nájmu</li>
           <li>Nájem při prázdném bytě: <b>50 %</b></li>
           <li>Nájem u neplatiče: <b>50 %</b></li>
+          <li>Dohled nad bytem — 2× ročně fotoreport</li>
           <li>Varianta START + hlídání plateb a komunikace s nájemcem</li>
         </ul>
         <a class="btn ghost" href="index.html#poptavka">Získat nabídku zdarma</a>
@@ -133,14 +189,14 @@
           <li>Nájem při prázdném bytě: <b>100 %</b></li>
           <li>Nájem u neplatiče: <b>100 %</b></li>
           <li>Výměna problémového nájemce</li>
-          <li>Varianta JISTOTA + dohled nad bytem — 2× ročně fotoreport</li>
+          <li>Vše z varianty JISTOTA — fotoreport, hlídání plateb i komunikace</li>
         </ul>
         <a class="btn" href="index.html#poptavka">Získat nabídku zdarma</a>
       </div>
     </div>
 
   <p style="font-size:14px;color:var(--muted);max-width:76ch;margin-top:16px">Pro srovnání: plná garance nájmu stojí u největších celorepublikových poskytovatelů <b>17 % z nájmu</b> a smlouvy se uzavírají na 2 a více let (veřejný ceník Bohemian Estates, září 2026). U nás 15 % — a ceny píšeme rovnou na web.</p>
-  <div class="cmp-wrap">
+  <div class="cmp-wrap" id="porovnani">
     <table class="cmp">
       <thead><tr><th>Co všechno za Vás uděláme</th><th>Sám</th><th>START</th><th>JISTOTA</th><th class="me">KLID</th></tr></thead>
       <tbody>
