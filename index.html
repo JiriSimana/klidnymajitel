@@ -267,6 +267,8 @@
   .faq summary::after{content:"+";position:absolute;right:18px;top:12px;font-family:"Schibsted Grotesk",sans-serif;font-weight:700;font-size:22px;color:var(--coral)}
   .faq details[open] summary::after{content:"–"}
   .faq .a{padding:0 18px 16px;font-size:14.5px;color:var(--muted);max-width:78ch}
+  #faq .faq{max-width:820px}
+  @media(min-width:880px){#faq .faq{max-width:1080px;columns:2;column-gap:14px}#faq .faq details{break-inside:avoid}}
 
   /* kontakt */
   .contact{background:var(--white);border-top:1px solid var(--line)}
@@ -742,7 +744,7 @@
       <div class="eyebrow">Časté dotazy</div>
       <h2>Na co se ptáte nejčastěji</h2>
     </div>
-    <div class="faq" style="max-width:820px">
+    <div class="faq">
       <details>
         <summary>Co přesně znamená „garantujeme nájem, i když je byt prázdný“?</summary>
         <div class="a">U varianty KLID Vám posíláme 100 % sjednaného nájmu každý měsíc od prvního obsazení bytu naším nájemníkem, u varianty JISTOTA 50 % — i za měsíce, kdy se byt zrovna mění nájemník nebo je prázdný. Výpadek kryjeme po celou dobu platné nájemní smlouvy — a mezitím nasadíme nového nájemníka. Garance je černá na bílém ve smlouvě.</div>
