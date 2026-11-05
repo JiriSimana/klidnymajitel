@@ -2,6 +2,13 @@
 <html lang="cs">
 <head>
 <meta charset="utf-8">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W8KJ2DFH');</script>
+<!-- End Google Tag Manager -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Garantovaný nájem a správa nemovitostí v Plzeňském kraji. Nájem Vám chodí každý měsíc — i když je byt prázdný. Zdarma, bez zprostředkovatelských smluv a bez pokut.">
 <link rel="canonical" href="https://www.klidnymajitel.cz/">
@@ -321,6 +328,10 @@
 <body>
 
 
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W8KJ2DFH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 <!-- announcement bar — rotuje 3 sdělení (blueprint kap. 02) -->
 <div class="announce" id="announce">
   <span class="msg on">Za službou stojí tým s <b>22 lety praxe</b> na plzeňském realitním trhu</span>
@@ -949,7 +960,11 @@
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(data)
       }).then(function(r){ return r.ok ? r.json() : Promise.reject(); })
-        .then(function(){ ok.classList.add('show'); form.reset(); })
+        .then(function(){
+          ok.classList.add('show'); form.reset();
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({ event: 'lead_submit', form_type: data.form });
+        })
         .catch(function(){ if (err) err.classList.add('show'); })
         .finally(function(){ btn.disabled = false; btn.textContent = orig; });
     });
