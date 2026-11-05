@@ -441,7 +441,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="co-val" id="c-range">—</div>
         <div class="co-gar" id="c-gar"></div>
         <div class="co-note">Přesnou částku potvrdíme po prohlídce zdarma — obvykle do 24 hodin.</div>
-        <a class="btn" href="#poptavka" style="width:100%;text-align:center;margin-top:12px">Získat nabídku zdarma</a>
       </div>
       <div class="gnote">Nezávazné · žádné smlouvy předem · žádné pokuty za rozmyšlení</div>
     </div>
@@ -937,7 +936,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     document.getElementById('c-range').textContent = fmt(lo) + ' – ' + fmt(hi) + ' Kč/měs.';
     var g = document.getElementById('c-gar');
     g.innerHTML = 'S garancí <b>KLID</b> Vám měsíčně chodí <b>' + fmt((lo+hi)/2*0.85) + ' Kč</b> — i za prázdné měsíce. Bez garance (START) je pronájem zcela zdarma.'
-      + '<div style="margin-top:12px"><a class="btn" href="#poptavka" id="calc-to-lead">Odeslat jako nezávaznou poptávku</a></div>';
+      + '<div style="margin-top:12px"><a class="btn" href="#poptavka" id="calc-to-lead" style="display:block;text-align:center">Chci nezávaznou nabídku pro tento byt</a></div>'
+      + '<div class="co-note" style="margin-top:8px">Údaje z kalkulačky doplníme do poptávky za Vás — stačí přidat kontakt a odeslat.</div>';
     var ctl = document.getElementById('calc-to-lead');
     if (ctl) ctl.addEventListener('click', function(){
       var typSel = document.getElementById('c-typ');
@@ -949,6 +949,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       document.getElementById('l-kde').value = adr || kdeSel.options[kdeSel.selectedIndex].text;
       var m2 = document.getElementById('c-m2') ? document.getElementById('c-m2').value : '';
       document.getElementById('l-pozn').value = typTxt + (m2 ? ', ' + m2 + ' m²' : '') + ' — orientační výpočet z kalkulačky: ' + fmt(lo) + '–' + fmt(hi) + ' Kč/měs.';
+      setTimeout(function(){ var t = document.getElementById('l-tel'); if (t) t.focus({preventScroll:true}); }, 450);
     });
     document.getElementById('c-out').classList.add('show');
   });
