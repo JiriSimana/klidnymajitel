@@ -954,6 +954,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       ok.classList.remove('show'); if (err) err.classList.remove('show');
       var data = build();
       data.web = form.querySelector('.hp-web') ? form.querySelector('.hp-web').value : '';
+      // měření: event_id sdílí server (Conversions API) i prohlížečový pixel → deduplikace
+      data.eid = 'km-' + Date.now() + '-' + Math.random().toString(36).slice(2, 10);
+      data.url = location.href;
+      var ck = ('; ' + document.cookie);
+      var fbp = ck.split('; _fbp=')[1]; if (fbp) data.fbp = fbp.split(';')[0];
+      var fbc = ck.split('; _fbc=')[1]; if (fbc) data.fbc = fbc.split(';')[0];
       btn.disabled = true; var orig = btn.textContent; btn.textContent = 'Odesílám…';
       fetch('/api/lead', {
         method: 'POST',
@@ -963,7 +969,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         .then(function(){
           ok.classList.add('show'); form.reset();
           window.dataLayer = window.dataLayer || [];
-          window.dataLayer.push({ event: 'lead_submit', form_type: data.form });
+          window.dataLayer.push({ event: 'lead_submit', form_type: data.form, event_id: data.eid });
         })
         .catch(function(){ if (err) err.classList.add('show'); })
         .finally(function(){ btn.disabled = false; btn.textContent = orig; });

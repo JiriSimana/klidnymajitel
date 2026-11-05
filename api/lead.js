@@ -4,6 +4,70 @@
 //   LEAD_TO         – kam poptávky chodí (výchozí info@klidnymajitel.cz)
 //   LEAD_FROM       – odesílatel; doména musí být ověřená v Resend
 //                     (výchozí "Klidný majitel <poptavky@info.klidnymajitel.cz>")
+// Volitelné — Meta Conversions API (server-side konverze):
+//   FB_PIXEL_ID           – ID datasetu/pixelu z Events Manageru
+//   FB_CAPI_ACCESS_TOKEN  – přístupový token Conversions API
+//   FB_TEST_EVENT_CODE    – jen pro testování v Events Manageru (pak smazat)
+
+const crypto = require("crypto");
+
+const sha256 = (s) => crypto.createHash("sha256").update(s).digest("hex");
+
+// Meta vyžaduje normalizaci před hashováním: e-mail lowercase/trim,
+// telefon jen číslice s předvolbou (CZ 9 číslic → doplnit 420)
+const normMail = (s) => String(s || "").trim().toLowerCase();
+const normPhone = (s) => {
+  let p = String(s || "").replace(/\D/g, "");
+  if (p.length === 9) p = "420" + p;
+  return p;
+};
+
+async function sendCapiEvent(d, req) {
+  const pixelId = process.env.FB_PIXEL_ID;
+  const token = process.env.FB_CAPI_ACCESS_TOKEN;
+  if (!pixelId || !token) return; // měření vypnuto, poptávky fungují dál
+
+  const userData = { };
+  const mail = normMail(d.mail);
+  if (mail) userData.em = [sha256(mail)];
+  const phone = normPhone(d.tel);
+  if (phone) userData.ph = [sha256(phone)];
+  const ip = String(req.headers["x-forwarded-for"] || "").split(",")[0].trim();
+  if (ip) userData.client_ip_address = ip;
+  const ua = req.headers["user-agent"];
+  if (ua) userData.client_user_agent = String(ua).slice(0, 400);
+  if (d.fbp) userData.fbp = String(d.fbp).slice(0, 100);
+  if (d.fbc) userData.fbc = String(d.fbc).slice(0, 400);
+
+  const event = {
+    event_name: d.form === "seek" ? "SeekSubmit" : "Lead",
+    event_time: Math.floor(Date.now() / 1000),
+    action_source: "website",
+    event_source_url: String(d.url || "https://www.klidnymajitel.cz/").slice(0, 300),
+    user_data: userData,
+  };
+  // stejné event_id posílá i prohlížečový pixel (přes GTM) → deduplikace
+  if (d.eid) event.event_id = String(d.eid).slice(0, 80);
+
+  const body = { data: [event] };
+  if (process.env.FB_TEST_EVENT_CODE) body.test_event_code = process.env.FB_TEST_EVENT_CODE;
+
+  try {
+    const r = await fetch(
+      `https://graph.facebook.com/v21.0/${pixelId}/events?access_token=${encodeURIComponent(token)}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      }
+    );
+    const t = await r.text();
+    if (!r.ok) console.error("capi-error", r.status, t.slice(0, 300));
+    else console.log("capi-ok", t.slice(0, 120));
+  } catch (e) {
+    console.error("capi-error", e && e.message);
+  }
+}
 
 const esc = (s) =>
   String(s || "")
@@ -21,7 +85,7 @@ module.exports = async (req, res) => {
   }
 
   const d = req.body || {};
-  // honeypot — roboti pole vyplní, lidé ho nevidí
+  // honeypot — roboti pole vyplní, lidé ho nevidí (a do měření nejdou)
   if (d.web) return res.status(200).json({ ok: true });
 
   const isSeek = d.form === "seek";
@@ -82,6 +146,9 @@ module.exports = async (req, res) => {
       console.error("resend-error", r.status, t.slice(0, 300));
       return res.status(502).json({ ok: false, error: "send" });
     }
+
+    // poptávka je u nás → konverze do Meta Conversions API (selhání nevadí)
+    await sendCapiEvent(d, req);
 
     // poděkování odesílateli (když uvedl e-mail) — selhání nevadí, poptávka už je u nás
     if (d.mail) {
