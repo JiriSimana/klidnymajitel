@@ -1,4 +1,14 @@
-<!doctype html><html lang="cs"><head><meta charset="utf-8"><!-- Google Tag Manager -->
+<!doctype html><html lang="cs"><head><meta charset="utf-8"><!-- Consent Mode v2 — výchozí stav: bez souhlasu (musí být před GTM) -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  ad_storage: 'denied', analytics_storage: 'denied',
+  ad_user_data: 'denied', ad_personalization: 'denied',
+  wait_for_update: 500
+});
+</script>
+<!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -242,4 +252,38 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <span>© Klidný majitel · provozuje Profiservis24 s.r.o., IČO 64831329 · spolupracujeme s RK Mixreality (Reality-Plzeň s.r.o.) · Plzeň, Přemyslova 111/3</span>
   <span><a href="index.html">Úvod</a> · <a href="pruvodce.html">Průvodce</a> · <a href="index.html#poptavka">Kontakt</a></span>
 </div></footer>
+<!-- Cookie lišta -->
+<div id="km-cookies" style="display:none;position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;max-width:520px;margin:0 auto;background:#0C3A42;color:#fff;border-radius:16px;padding:20px 22px;box-shadow:0 18px 60px rgba(12,58,66,.45);font-size:15px;line-height:1.5">
+  <b style="display:block;margin-bottom:6px">Cookies na Klidném majiteli</b>
+  <span style="color:rgba(255,255,255,.85)">Používáme cookies k měření návštěvnosti a účinnosti reklamy. Měření spustíme až s&nbsp;Vaším souhlasem.</span>
+  <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+    <button id="km-ck-yes" type="button" style="background:#E4684A;color:#fff;border:0;border-radius:999px;padding:11px 22px;font-weight:700;font-size:15px;cursor:pointer;font-family:inherit">Povolit vše</button>
+    <button id="km-ck-no" type="button" style="background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.4);border-radius:999px;padding:11px 22px;font-weight:600;font-size:15px;cursor:pointer;font-family:inherit">Jen nezbytné</button>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY='km-consent', box=document.getElementById('km-cookies');
+  function stored(){ try{return localStorage.getItem(KEY);}catch(e){return null;} }
+  function grant(){
+    gtag('consent','update',{ad_storage:'granted',analytics_storage:'granted',ad_user_data:'granted',ad_personalization:'granted'});
+    window.dataLayer.push({event:'cookie_consent_granted'});
+  }
+  function save(v){ try{localStorage.setItem(KEY,v);}catch(e){} }
+  function show(){ box.style.display='block'; }
+  document.getElementById('km-ck-yes').addEventListener('click',function(){ save('granted'); grant(); box.style.display='none'; });
+  document.getElementById('km-ck-no').addEventListener('click',function(){ save('denied'); box.style.display='none'; });
+  var s=stored();
+  if(s==='granted'){ grant(); } else if(s!=='denied'){ show(); }
+  // odvolání/změna souhlasu — odkaz v patičce
+  var ft=document.querySelector('footer');
+  if(ft){
+    var a=document.createElement('a');
+    a.href='#'; a.textContent='Nastavení cookies';
+    a.style.cssText='display:inline-block;margin-top:10px;color:inherit;opacity:.7;font-size:13px;text-decoration:underline';
+    a.addEventListener('click',function(e){ e.preventDefault(); show(); });
+    ft.appendChild(a);
+  }
+})();
+</script>
 </body></html>
